@@ -1,0 +1,38 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "web-content.fullname" . -}}
+{{- $domainName := include "publicAddress.domainName" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-login
+  labels:
+    app: {{ template "web-content.name" . }}
+    chart: {{ template "web-content.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/secure-backends: "false"
+    ingress.kubernetes.io/app-root: /login
+spec:
+  tls:
+    - secretName: {{ .Values.global.httpsCertSecret }}
+      {{- if $domainName }}
+      hosts:
+        - {{ $domainName }}
+      {{- end }}
+
+  rules:
+    - http:
+        {{- if $domainName }}
+        host: {{ $domainName }}
+        {{ else }}
+        # host:  ## Not specified because global.PublicAddress is an IP address
+        {{ end -}}
+        paths:
+          - path: /login
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+
+{{- end }}

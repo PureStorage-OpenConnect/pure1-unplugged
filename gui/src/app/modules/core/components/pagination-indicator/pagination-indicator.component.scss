@@ -1,0 +1,62 @@
+// Copyright 2019, Pure Storage Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+.btn-toolbar {
+  display: flex;
+  position: relative;
+  height: 45px;
+  margin: 0px;
+
+  .btn-group {
+    margin: 0px;
+  }
+
+  .pagination-buttons {
+    .nav-pagination {
+      .count-range, .count-range:hover, .count-range:active {
+        height: fit-content;
+        line-height: 18px;
+        cursor: default;
+
+        .current-count {
+            font-weight: 600;
+        }
+
+        .total-count {
+            color: #8d8d8d;
+        }
+      }
+
+      .btn > .pstg-action-icon {
+        display: inline-block;
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        top: 8px;
+        left: 9px;
+      }
+
+      .btn-disabled {
+        cursor: not-allowed;
+        opacity: .65;
+      }
+
+      .btn-secondary {
+        background-color: #fff;
+        color: #454545;
+        border-color: #c5c5c5;
+      }
+    }
+  }
+}

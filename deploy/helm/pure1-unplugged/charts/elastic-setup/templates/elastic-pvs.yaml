@@ -1,0 +1,39 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elastic-master-pv-0
+  labels:
+    app: {{ template "elastic-setup.name" . }}
+    chart: {{ template "elastic-setup.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  capacity:
+    storage: 4Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: elastic-master-pv
+  hostPath:
+    path: "/mnt/elastic-master-pv-0"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elastic-data-pv
+  labels:
+    app: {{ template "elastic-setup.name" . }}
+    chart: {{ template "elastic-setup.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: elastic-data-pv
+  hostPath:
+    path: "/mnt/elastic-data-pv"

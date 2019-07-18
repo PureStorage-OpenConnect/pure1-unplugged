@@ -1,0 +1,21 @@
+{
+  "search" : {
+    "title": "Log Timers",
+    "columns": [
+      "total_runtime",
+      "source",
+      "process_name"
+    ],
+    "sort": [
+      "total_runtime",
+      "desc"
+    ],
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON": "{\"index\":\"log_timer_all\",\"highlightAll\":true,\"version\":true,\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[]}"
+    }
+  },
+  "type" : "search",
+  "updated_at" : "2019-01-29T06:16:22.578Z"
+}

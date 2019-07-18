@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+      "title": "Array Main Performance Summary",
+      "visState": "{\"title\":\"Array Main Performance Summary\",\"type\":\"table\",\"params\":{\"perPage\":5,\"showPartialRows\":false,\"showMetricsAtAllLevels\":false,\"sort\":{\"columnIndex\":5,\"direction\":\"asc\"},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"ReadLatency\",\"customLabel\":\"Read Latency (ms)\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"WriteLatency\",\"customLabel\":\"Write Latency (ms)\"}},{\"id\":\"7\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"ReadIOPS\",\"customLabel\":\"Read IOPS\"}},{\"id\":\"8\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"WriteIOPS\",\"customLabel\":\"Write IOPS\"}},{\"id\":\"9\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"ReadBandwidth\",\"customLabel\":\"Read Bandwidth (per sec)\"}},{\"id\":\"10\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"WriteBandwidth\",\"customLabel\":\"Write Bandwidth (per sec)\"}},{\"id\":\"11\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"OtherLatency\",\"customLabel\":\"Other Latency\"}},{\"id\":\"12\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"OtherIOPS\",\"customLabel\":\"Other IOPS\"}},{\"id\":\"6\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"QueueDepth\",\"customLabel\":\"Queue Depth\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"DisplayName\",\"size\":1000,\"order\":\"asc\",\"orderBy\":\"_key\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"Array\"}}]}",
+      "uiStateJSON" : "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":5,\"direction\":\"asc\"}}}}",
+      "description" : "",
+      "version" : 1,
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-01-29T06:16:37.424Z"
+}

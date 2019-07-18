@@ -1,0 +1,10 @@
+{
+    "doc": {
+     "config" : {
+        "format:percent:defaultPattern" : "0,0.[0]%",
+        "format:number:defaultPattern" : "0,0.[0]",
+        "format:bytes:defaultPattern" : "0,0.[0]b",
+        "defaultIndex": "pure_arrays_all"
+     }
+    }
+}

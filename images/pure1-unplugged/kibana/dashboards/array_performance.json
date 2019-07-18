@@ -1,0 +1,18 @@
+{
+    "dashboard" : {
+      "title" : "Array Performance Dashboard",
+      "hits" : 0,
+      "description" : "",
+      "panelsJSON" : "[{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":18,\"w\":24,\"h\":15,\"i\":\"1\"},\"id\":\"array_read_latency_viz\",\"panelIndex\":\"1\",\"title\":\"Read Latency\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":18,\"w\":24,\"h\":15,\"i\":\"2\"},\"id\":\"array_write_latency_viz\",\"panelIndex\":\"2\",\"title\":\"Write Latency\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":33,\"w\":24,\"h\":15,\"i\":\"3\"},\"id\":\"array_read_iops_viz\",\"panelIndex\":\"3\",\"title\":\"Read IOPS\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":33,\"w\":24,\"h\":15,\"i\":\"4\"},\"id\":\"array_write_iops_viz\",\"panelIndex\":\"4\",\"title\":\"Write IOPS\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":48,\"w\":24,\"h\":15,\"i\":\"5\"},\"id\":\"array_read_bandwidth_viz\",\"panelIndex\":\"5\",\"title\":\"Read Bandwidth\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":48,\"w\":24,\"h\":15,\"i\":\"6\"},\"id\":\"array_write_bandwidth_viz\",\"panelIndex\":\"6\",\"title\":\"Write Bandwidth\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":0,\"w\":48,\"h\":5,\"i\":\"7\"},\"id\":\"array_performance_control_viz\",\"panelIndex\":\"7\",\"title\":\"Control\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":5,\"w\":48,\"h\":13,\"i\":\"8\"},\"id\":\"array_performance_summary_viz\",\"panelIndex\":\"8\",\"title\":\"Summary\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"gridData\":{\"x\":24,\"y\":63,\"w\":24,\"h\":15,\"i\":\"9\"},\"version\":\"6.5.4\",\"panelIndex\":\"9\",\"type\":\"visualization\",\"id\":\"array_other_iops_viz\",\"embeddableConfig\":{},\"title\":\"Other IOPS\"},{\"gridData\":{\"x\":0,\"y\":63,\"w\":24,\"h\":15,\"i\":\"10\"},\"version\":\"6.5.4\",\"panelIndex\":\"10\",\"type\":\"visualization\",\"id\":\"array_other_latency_viz\",\"embeddableConfig\":{},\"title\":\"Other Latency\"}]",
+      "optionsJSON" : "{\"darkTheme\":false,\"useMargins\":true,\"hidePanelTitles\":false}",
+      "version" : 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-7d",
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "dashboard",
+    "updated_at" : "2019-01-30T06:26:23.783Z"
+  }

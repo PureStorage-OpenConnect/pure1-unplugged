@@ -1,0 +1,33 @@
+<div class="tag-list-item" (mouseover)="hovered=true" (mouseout)="hovered=false">
+  <div class="key-value-wrapper form-inline read-row" [class.read-row]="!keyFocused && !valueFocused"
+    [class.invalid]="isKeyEmpty() || isValueEmpty()">
+    <input class="form-control edit-key" (focus)="keyFocused = true" (focusout)="keyFocused = false" [(ngModel)]="key"
+      [class.invalid]="isKeyEmpty()" required />
+    <input class="form-control edit-value" (focus)="valueFocused = true" (focusout)="valueFocused = false"
+      [(ngModel)]="value" [class.invalid]="isValueEmpty()" required />
+  </div>
+  <button class="action-icons hidden-until-shown" [class.show]="showDeleteIcon()" type="button" (click)="onDeletePressed()">
+    <span style="display: inline-block; width: 13.0405px; height: 16px;"><svg viewBox="0 0 46.9539948 57.6100006">
+        <path
+          d="M3.6109982,54.0110016c0,1.987999,1.6170006,3.598999,3.611002,3.598999h32.5079956
+            c2.0019989,0,3.6179962-1.6100006,3.6179962-3.598999V16.9690018H3.6109982V54.0110016z M32.2739983,20.538002h5.6000023v29.9550018
+            c0,1.5459976-1.2560005,2.7959976-2.7949982,2.7959976c-1.5489998,0-2.8040009-1.25-2.8040009-2.7959976V20.538002H32.2739983z
+             M20.6799965,20.538002h5.6040001v29.9550018c0,1.5459976-1.2540016,2.7959976-2.802002,2.7959976
+            s-2.802002-1.25-2.802002-2.7959976L20.6799965,20.538002z M9.0029984,20.538002h5.5960007v29.9550018
+            c0,1.5459976-1.2550011,2.7959976-2.7980003,2.7959976s-2.7970009-1.25-2.7970009-2.7959976V20.538002H9.0029984z">
+        </path>
+        <path d="M43.3399963,3.8509998H29.1589966v-2.052c0,0-0.0639992-1.7989998-1.8699989-1.7989998h-7.7449989
+            c-1.8040009,0-1.7420006,1.7989998-1.7420006,1.7989998v2.052H3.6119995C1.6189995,3.8509998,0,5.4640007,0,7.4519997v5.9189987
+            h46.9539948V7.4519978C46.9529953,5.4640007,45.3349991,3.8509998,43.3399963,3.8509998z"></path>
+      </svg>
+    </span>
+  </button>
+</div>
+<div class="error-messages clearfix ng-star-inserted" *ngIf="isKeyEmpty() || isValueEmpty()">
+  <div class="key-errors">
+    <div class="key-error" *ngIf="isKeyEmpty()">Key is required</div>
+  </div>
+  <div class="value-errors">
+    <div class="value-error" *ngIf="isValueEmpty()">Value is required</div>
+  </div>
+</div>

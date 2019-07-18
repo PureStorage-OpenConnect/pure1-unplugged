@@ -1,0 +1,164 @@
+.bounding-panel {
+  margin-top: 234px;
+  text-align: center;
+}
+
+.pure1-logo {
+  height: 35px;
+  margin-bottom: 21px;
+  font-size: 14px;
+}
+
+.theme-body {
+  background-color: #e6e6e6;
+  color: #333;
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+}
+
+.theme-navbar {
+  display: none;
+}
+
+.theme-navbar__logo-wrap {
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  padding: 10px 15px;
+  width: 300px;
+}
+
+.theme-navbar__logo {
+  height: 100%;
+  max-height: 25px;
+}
+
+.theme-heading {
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+.theme-panel {
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  padding: 30px;
+}
+
+.theme-btn-provider {
+  background-color: #fb5000;
+  border: none;
+  color: #fff;
+  width: 282px;
+  padding: 6px 12px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.theme-btn-provider:hover {
+  color: #999;
+}
+
+.theme-btn--primary {
+  background-color: #fb5000;
+  border: none;
+  color: #fff;
+  width: 282px;
+  padding: 6px 12px;
+  font-size: 12px;
+  margin-top: 23px;
+}
+
+.theme-btn--primary:disabled {
+  opacity: 0.65;
+}
+
+.theme-btn--success {
+  background-color: #fb5000;
+  border: none;
+  color: #fff;
+  width: 282px;
+  padding: 6px 12px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.theme-form-row {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.theme-form-input {
+  display: block;
+  height: 30px;
+  padding: 6px 15px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #454545;
+  border: 1px solid #c5c5c5;
+  border-radius: 2px;
+  width: 282px;
+  margin: auto;
+}
+
+.theme-form-input:focus,
+.theme-form-input:active {
+  outline: none;
+  border-color: #5ab0ee;
+}
+
+.theme-form-label {
+  width: 250px;
+  margin: 4px auto;
+  text-align: left;
+  position: relative;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.theme-link-back {
+  margin-top: 4px;
+}
+
+.dex-container {
+  margin: 60px auto;
+}
+
+.dex-btn {
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.dex-btn-text {
+  font-size: 12px;
+  padding: 0px;
+}
+
+.grant-box {
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #c5c5c5;
+  width: 282px;
+  margin: auto;
+  text-align: left;
+}
+
+.error-box {
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #c5c5c5;
+  width: 282px;
+  margin: auto;
+  text-align: center;
+}
+
+.dex-subtle-text {
+  color: #000;
+  margin-left: 20px;
+}
+
+.dex-list {
+  color: #000;
+}

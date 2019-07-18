@@ -1,0 +1,50 @@
+VERSION=$(shell ./scripts/generate_version.sh ./)
+
+VERSION_HOOK=github.com/PureStorage-OpenConnect/pure1-unplugged/pkg/version.buildVersion
+
+ALL_PKG=./pkg/... ./cmd/...
+BIN_DIR=./build/bin
+
+LDFLAGS= -X $(VERSION_HOOK)='$(VERSION)' -linkmode external -extldflags '-static'
+GOBUILD= CC=/usr/local/musl/bin/musl-gcc go build --ldflags "$(LDFLAGS)"
+
+all: clean style bins
+
+clean:
+	go clean $(ALL_PKG)
+	rm -rf $(BIN_DIR)
+
+prep: fmt style
+
+bins: auth-server api-server metrics-client monitor-server puctl
+
+puctl:
+	$(GOBUILD) ./cmd/puctl
+	mkdir -p $(BIN_DIR) && mv -f puctl $(BIN_DIR)/
+
+api-server:
+	$(GOBUILD) ./cmd/api-server
+	mkdir -p $(BIN_DIR) && mv -f api-server $(BIN_DIR)/pure1-unplugged-api-server
+
+auth-server:
+	$(GOBUILD) ./cmd/auth-server
+	mkdir -p $(BIN_DIR) && mv -f auth-server $(BIN_DIR)/pure1-unplugged-auth-server
+
+metrics-client:
+	$(GOBUILD) ./cmd/metrics-client
+	mkdir -p $(BIN_DIR) && mv -f metrics-client $(BIN_DIR)/pure1-unplugged-metrics-client
+
+monitor-server:
+	$(GOBUILD) ./cmd/monitor-server
+	mkdir -p $(BIN_DIR) && mv -f monitor-server $(BIN_DIR)/pure1-unplugged-monitor-server
+
+unit-tests:
+	/coverage.sh $(ALL_PKG)
+
+fmt:
+	go fmt $(ALL_PKG)
+
+style:
+	/check-style.sh $(ALL_PKG)
+
+.PHONY: clean style fmt prep bins puctl api-server auth-server metrics-client monitor-server unit-tests

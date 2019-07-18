@@ -1,0 +1,18 @@
+# This template is run after runtime-install.tmpl and before runtime-postinstall.tmpl
+# Files installed/created here are part of the anaconda boot image (not the actual iso we install from!)
+
+log "Installing pure1-unplugged-boot-config"
+installpkg pure1-unplugged-boot-config
+run_pkg_transaction
+
+log "Overwriting interactive-defaults.ks"
+install opt/pure1-unplugged/anaconda/pure.ks /usr/share/anaconda/interactive-defaults.ks
+
+log "Overwriting anaconda style resources"
+remove /usr/share/anaconda/pixmaps/rnotes/en/
+mkdir /usr/share/anaconda/pixmaps/rnotes/en/
+install opt/pure1-unplugged/anaconda/pixmaps/rnotes/en/pure1-banner.png /usr/share/anaconda/pixmaps/rnotes/en/pure1-banner.png
+install opt/pure1-unplugged/anaconda/pixmaps/sidebar-bg.png /usr/share/anaconda/pixmaps/sidebar-bg.png
+install opt/pure1-unplugged/anaconda/pixmaps/sidebar-logo.png /usr/share/anaconda/pixmaps/sidebar-logo.png
+install opt/pure1-unplugged/anaconda/pixmaps/topbar-bg.png /usr/share/anaconda/pixmaps/topbar-bg.png
+install opt/pure1-unplugged/anaconda/anaconda-gtk.css /usr/share/anaconda/anaconda-gtk.css

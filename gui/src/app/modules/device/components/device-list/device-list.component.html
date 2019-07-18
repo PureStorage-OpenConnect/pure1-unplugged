@@ -1,0 +1,33 @@
+<div class="search-bars">
+  <span>
+    <label class="term-label" for="name">Device Name</label>
+    <input class="term-input" [ngModel]="nameQuery" (ngModelChange)="onDeviceNameInputChange($event)" id="name">
+  </span>
+  <span>
+    <label class="term-label" for="model">Device Model</label>
+    <input class="term-input" [ngModel]="modelQuery" (ngModelChange)="onDeviceModelInputChange($event)" id="model">
+  </span>
+  <span>
+    <label class="term-label" for="version">Purity Version</label>
+    <input class="term-input" [ngModel]="versionQuery" (ngModelChange)="onVersionInputChange($event)" id="version">
+  </span>
+  <span class="fixed-size">
+    <label class="term-label" for="sort">Sort By</label>
+    <select class="custom-select pure-select term-input" [ngModel]="sortQuery" (ngModelChange)="onSortChange($event)" id="sort">
+      <option value="name" selected>Name</option>
+      <option value="model">Model</option>
+      <option value="version">Purity Version</option>
+    </select>
+    <select class="custom-select pure-select term-input" [ngModel]="sortDir" (ngModelChange)="onSortDirChange($event)" id="sort-dir">
+      <option value="asc" selected>Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+    <button class="btn btn-info" id="clear-button" (click)="clearButtonClick()">Clear Queries</button>
+  </span>
+</div>
+<div class="arrays-view col-xs-12">
+  <div *ngFor="let device of devices; trackBy: trackById">
+    <device-card [device]="device" [tags]="tags?.get(device.id)" [alerts]="openAlerts.has(device.id) ? openAlerts.get(device.id) : []"></device-card>
+  </div>
+  <device-registration-card (click)="registerButtonClick()"></device-registration-card>
+</div>

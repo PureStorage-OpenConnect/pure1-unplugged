@@ -1,0 +1,14 @@
+{
+  "visualization" : {
+    "title": "Array Daily Used Space",
+    "visState": "{\"title\":\"Daily Used Space\",\"type\":\"table\",\"params\":{\"perPage\":93,\"showPartialRows\":true,\"showMetricsAtAllLevels\":true,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"UsedSpace\",\"customLabel\":\"Average Used Space\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"split\",\"params\":{\"field\":\"DisplayName\",\"size\":100,\"order\":\"asc\",\"orderBy\":\"_key\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"Array Name\",\"row\":true}},{\"id\":\"3\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"bucket\",\"params\":{\"field\":\"CreatedAt\",\"timeRange\":{\"from\":\"now-31d\",\"to\":\"now\",\"mode\":\"relative\"},\"useNormalizedEsInterval\":true,\"interval\":\"custom\",\"drop_partials\":false,\"customInterval\":\"8h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Date\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"DataReduction\",\"customLabel\":\"Average Data Reduction\"}}]}",
+    "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON": "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+    }
+  },
+  "type" : "visualization",
+  "updated_at" : "2019-01-29T06:16:22.578Z"
+}

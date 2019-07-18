@@ -1,0 +1,95 @@
+// Copyright 2019, Pure Storage Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+pagination-indicator {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.table-fixed-header-container {
+    height: calc(100vh - 55px - 10px - 60px);
+    top: 60px;
+    overflow: visible;
+    margin: 0px 20px;
+
+    .table {
+        width: 100%;
+
+        .column-headings {
+            height: 28px;
+        }
+
+        td {
+            padding: 5px 20px;
+        }
+
+        .icon-column {
+            width: 40px;
+            flex-grow: 0;
+            text-overflow: clip;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        .column-group-title {
+            cursor: pointer;
+        }
+
+        .message-row {
+            cursor: pointer;
+
+            .icon-column-icon-cell {
+                height: 30px;
+                flex-grow: 0;
+                padding: 5px 12px;
+                overflow-y: hidden;
+                text-overflow: clip;
+            }
+        }
+
+        .manual-sort {
+            fill: #fb5000;
+            display: inline-block;
+            width: 8.58px;
+        }
+
+        .manual-sort.st-sort-none {
+            transform: scaleY(0);
+        }
+
+        .manual-sort.st-sort-ascent {
+            transform: scaleY(-1);
+            vertical-align: top;
+        }
+
+        .manual-sort.st-sort-descent {
+            transform: scaleY(1);
+            vertical-align: bottom;
+        }
+
+        .custom-text {
+            height: 28px;
+            top: 0px;
+        }
+
+        #status-select {
+            height: 28px;
+        }
+    }
+}
+
+
+
+

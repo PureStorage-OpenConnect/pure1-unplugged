@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE comps PUBLIC '-//CentOS//DTD Comps info//EN' 'comps.dtd'>
+<comps>
+    <group>
+        <id>core</id>
+        <name>Core</name>
+        <default>true</default>
+        <uservisible>false</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>audit</packagereq>
+            <packagereq type='mandatory'>basesystem</packagereq>
+            <packagereq type='mandatory'>bash</packagereq>
+            <packagereq type='mandatory'>biosdevname</packagereq>
+            <packagereq type='mandatory'>btrfs-progs</packagereq>
+            <packagereq type='mandatory'>coreutils</packagereq>
+            <packagereq type='mandatory'>cronie</packagereq>
+            <packagereq type='mandatory'>curl</packagereq>
+            <packagereq type='mandatory'>dhclient</packagereq>
+            <packagereq type='mandatory'>e2fsprogs</packagereq>
+            <packagereq type='mandatory'>filesystem</packagereq>
+            <packagereq type='mandatory'>firewalld</packagereq>
+            <packagereq type='mandatory'>glibc</packagereq>
+            <packagereq type='mandatory'>hostname</packagereq>
+            <packagereq type='mandatory'>initscripts</packagereq>
+            <packagereq type='mandatory'>iproute</packagereq>
+            <packagereq type='mandatory'>iprutils</packagereq>
+            <packagereq type='mandatory'>iptables</packagereq>
+            <packagereq type='mandatory'>iputils</packagereq>
+            <packagereq type='mandatory'>irqbalance</packagereq>
+            <packagereq type='mandatory'>jq</packagereq>
+            <packagereq type='mandatory'>kbd</packagereq>
+            <packagereq type='mandatory'>kexec-tools</packagereq>
+            <packagereq type='mandatory'>less</packagereq>
+            <packagereq type='mandatory'>man-db</packagereq>
+            <packagereq type='mandatory'>nano</packagereq>
+            <packagereq type='mandatory'>ncurses</packagereq>
+            <packagereq type='mandatory'>openssh-clients</packagereq>
+            <packagereq type='mandatory'>openssh-server</packagereq>
+            <packagereq type='mandatory'>parted</packagereq>
+            <packagereq type='mandatory'>passwd</packagereq>
+            <packagereq type='mandatory'>plymouth</packagereq>
+            <packagereq type='mandatory'>policycoreutils</packagereq>
+            <packagereq type='mandatory'>procps-ng</packagereq>
+            <packagereq type='mandatory'>rootfiles</packagereq>
+            <packagereq type='mandatory'>rpm</packagereq>
+            <packagereq type='mandatory'>rsyslog</packagereq>
+            <packagereq type='mandatory'>screen</packagereq>
+            <packagereq type='mandatory'>selinux-policy-targeted</packagereq>
+            <packagereq type='mandatory'>setup</packagereq>
+            <packagereq type='mandatory'>shadow-utils</packagereq>
+            <packagereq type='mandatory'>sudo</packagereq>
+            <packagereq type='mandatory'>systemd</packagereq>
+            <packagereq type='mandatory'>tar</packagereq>
+            <packagereq type='mandatory'>tmux</packagereq>
+            <packagereq type='mandatory'>tuned</packagereq>
+            <packagereq type='mandatory'>util-linux</packagereq>
+            <packagereq type='mandatory'>vim-minimal</packagereq>
+            <packagereq type='mandatory'>xfsprogs</packagereq>
+            <packagereq type='mandatory'>yum</packagereq>
+            <packagereq type='default'>aic94xx-firmware</packagereq>
+            <packagereq type='default'>bfa-firmware</packagereq>
+            <packagereq type='default'>dracut-config-rescue</packagereq>
+            <packagereq type='default'>kernel-tools</packagereq>
+            <packagereq type='default'>libertas-sd8686-firmware</packagereq>
+            <packagereq type='default'>libertas-sd8787-firmware</packagereq>
+            <packagereq type='default'>libertas-usb8388-firmware</packagereq>
+            <packagereq type='default'>libsysfs</packagereq>
+            <packagereq type='default'>linux-firmware</packagereq>
+            <packagereq type='default'>microcode_ctl</packagereq>
+            <packagereq type='default'>NetworkManager</packagereq>
+            <packagereq type='default'>NetworkManager-team</packagereq>
+            <packagereq type='default'>NetworkManager-tui</packagereq>
+            <packagereq type='default'>NetworkManager-wifi</packagereq>
+            <packagereq type='default'>ql2100-firmware</packagereq>
+            <packagereq type='default'>ql2200-firmware</packagereq>
+            <packagereq type='default'>ql23xx-firmware</packagereq>
+            <packagereq type='default'>rdma</packagereq>
+            <packagereq type='optional'>dracut-config-generic</packagereq>
+            <packagereq type='optional'>dracut-fips</packagereq>
+            <packagereq type='optional'>dracut-fips-aesni</packagereq>
+            <packagereq type='optional'>dracut-network</packagereq>
+            <packagereq type='optional'>openssh-keycat</packagereq>
+            <packagereq type='optional'>selinux-policy-mls</packagereq>
+            <packagereq type='optional'>tboot</packagereq>
+            <packagereq type='mandatory'>yum-utils</packagereq>
+        </packagelist>
+    </group>
+    <group>
+        <id>pure1-unplugged</id>
+        <name>Pure1 Unplugged</name>
+        <default>true</default>
+        <uservisible>false</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>docker-ce</packagereq>
+            <packagereq type='mandatory'>kubelet</packagereq>
+            <packagereq type='mandatory'>kubeadm</packagereq>
+            <packagereq type='mandatory'>kubectl</packagereq>
+            <packagereq type='mandatory'>pure1-unplugged</packagereq>
+            <packagereq type='mandatory'>bash-completion</packagereq>
+        </packagelist>
+    </group>
+    <group>
+        <id>vmware-guest-tools</id>
+        <name>VMWare Guest Tools</name>
+        <default>true</default>
+        <uservisible>true</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>open-vm-tools</packagereq>
+        </packagelist>
+    </group>
+    <group>
+        <id>hyperv-guest-tools</id>
+        <name>HyperV Guest Tools</name>
+        <default>true</default>
+        <uservisible>true</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>hyperv-daemons</packagereq>
+            <packagereq type='mandatory'>hyperv-daemons-license</packagereq>
+            <packagereq type='mandatory'>hypervkvpd</packagereq>
+            <packagereq type='mandatory'>hypervkvpd</packagereq>
+            <packagereq type='mandatory'>hypervfcopyd</packagereq>
+            <packagereq type='mandatory'>hypervvssd</packagereq>
+        </packagelist>
+    </group>
+    <group>
+        <id>qemu-guest-tools</id>
+        <name>QEMU Guest Tools</name>
+        <default>true</default>
+        <uservisible>true</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>qemu-guest-agent</packagereq>
+        </packagelist>
+    </group>
+    <group>
+        <id>cloud-init</id>
+        <name>Cloud Init</name>
+        <default>false</default>
+        <uservisible>true</uservisible>
+        <packagelist>
+            <packagereq type='mandatory'>cloud-init</packagereq>
+        </packagelist>
+    </group>
+    <grouphierarchy>
+        <category>
+            <name>VM Guest Tools</name>
+            <subcategories>
+                <subcategory>vmware-guest-tools</subcategory>
+                <subcategory>hyperv-guest-tools</subcategory>
+                <subcategory>qemu-guest-tools</subcategory>
+                <subcategory>cloud-init</subcategory>
+            </subcategories>
+        </category>
+    </grouphierarchy>
+    <environment>
+        <id>pure1-unplugged</id>
+        <name>Pure1 Unplugged</name>
+        <description>Pure1 Unplugged Required Packages</description>
+        <display_order>10</display_order>
+        <grouplist>
+            <groupid>core</groupid>
+            <groupid>pure1-unplugged</groupid>
+        </grouplist>
+        <optionlist>
+            <groupid>vmware-guest-tools</groupid>
+            <groupid>hyperv-guest-tools</groupid>
+            <groupid>qemu-guest-tools</groupid>
+            <groupid>cloud-init</groupid>
+        </optionlist>
+    </environment>
+</comps>

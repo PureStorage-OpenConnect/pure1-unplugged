@@ -1,0 +1,7 @@
+<svg viewBox="0 0 86.6 78.5">
+	<g class="pstg-alert-warning-icon">
+		<path class="pstg-secondary-icon-background" d="M72.6,78.4H13.9c-5.9,0-10.4-2.1-12.5-5.9c-2.2-3.8-1.8-8.7,1.2-13.8L31.9,7.9c3-5.1,7-7.9,11.4-7.9 s8.4,2.8,11.4,7.9L84,58.7c3,5.1,3.4,10,1.2,13.8C82.9,76.3,78.5,78.4,72.6,78.4z"/>
+		<circle class="pstg-secondary-icon-content" cx="43.7" cy="60.6" r="5.5"/>
+		<path class="pstg-secondary-icon-content" d="M49.4,27.3c0-3.1-2.5-5.7-5.7-5.7c-3.1,0-5.7,2.5-5.7,5.7l1.3,20.1l0,0c0.2,2.2,2,4,4.3,4 c2.1,0,3.9-1.5,4.3-3.5c0-0.2,0-0.3,0-0.5l0,0L49.4,27.3z"/>
+	</g>
+</svg>

@@ -1,0 +1,18 @@
+{
+    "dashboard" : {
+      "title" : "File System Performance Dashboard",
+      "hits" : 0,
+      "description" : "",
+      "panelsJSON": "[{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":25,\"w\":24,\"h\":15,\"i\":\"7\"},\"id\":\"volume_read_latency_viz\",\"panelIndex\":\"7\",\"title\":\"Read Latency\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":40,\"w\":24,\"h\":15,\"i\":\"8\"},\"id\":\"volume_read_iops_viz\",\"panelIndex\":\"8\",\"title\":\"Read IOPS\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":55,\"w\":24,\"h\":15,\"i\":\"9\"},\"id\":\"volume_read_bandwidth_viz\",\"panelIndex\":\"9\",\"title\":\"Read Bandwidth\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":25,\"w\":24,\"h\":15,\"i\":\"10\"},\"id\":\"volume_write_latency_viz\",\"panelIndex\":\"10\",\"title\":\"Write Latency\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":40,\"w\":24,\"h\":15,\"i\":\"11\"},\"id\":\"volume_write_iops_viz\",\"panelIndex\":\"11\",\"title\":\"Write IOPS\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":55,\"w\":24,\"h\":15,\"i\":\"12\"},\"id\":\"volume_write_bandwidth_viz\",\"panelIndex\":\"12\",\"title\":\"Write Bandwidth\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":70,\"w\":24,\"h\":15,\"i\":\"13\"},\"id\":\"volume_other_latency_viz\",\"panelIndex\":\"13\",\"title\":\"Other Latency\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":24,\"y\":70,\"w\":24,\"h\":15,\"i\":\"14\"},\"id\":\"volume_other_iops_viz\",\"panelIndex\":\"14\",\"title\":\"Other IOPS\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":0,\"w\":48,\"h\":5,\"i\":\"15\"},\"id\":\"filesystem_performance_control_viz\",\"panelIndex\":\"15\",\"title\":\"Control\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"x\":0,\"y\":5,\"w\":48,\"h\":20,\"i\":\"16\"},\"id\":\"filesystem_performance_summary_viz\",\"panelIndex\":\"16\",\"type\":\"visualization\",\"version\":\"6.5.4\",\"title\":\"Summary\"}]",
+      "optionsJSON" : "{\"darkTheme\":false,\"useMargins\":true,\"hidePanelTitles\":false}",
+      "version" : 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-7d",
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"query\":{\"query\":\"Type: FileSystem\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "dashboard",
+    "updated_at" : "2019-04-18T19:55:52.250Z"
+  }

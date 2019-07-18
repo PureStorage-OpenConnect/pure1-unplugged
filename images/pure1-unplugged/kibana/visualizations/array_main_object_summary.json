@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+      "title": "Array Main Object Summary",
+      "visState": "{\"title\":\"Array Main Object Summary\",\"type\":\"table\",\"params\":{\"perPage\":5,\"showPartialRows\":false,\"showMetricsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"HostCount\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Hosts\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"DisplayName\",\"size\":1000,\"order\":\"asc\",\"orderBy\":\"_key\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"Array\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"VolumeCount\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Volumes\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"FileSystemCount\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"File Systems\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"SnapshotCount\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Snapshots\"}}]}",
+      "uiStateJSON" : "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":1,\"direction\":null}}}}",
+      "description" : "",
+      "version" : 1,
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-01-29T06:16:07.477Z"
+}

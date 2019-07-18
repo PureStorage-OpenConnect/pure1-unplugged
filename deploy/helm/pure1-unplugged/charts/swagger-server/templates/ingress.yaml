@@ -1,0 +1,41 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "swagger-server.fullname" . -}}
+{{- $domainName := include "publicAddress.domainName" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ template "swagger-server.name" . }}
+    chart: {{ template "swagger-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/secure-backends: "false"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      sub_filter '<head>' '<head> <base href="https://{{ .Values.global.publicAddress }}/swagger/">';
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/auth/login"
+spec:
+  tls:
+    - secretName: {{ .Values.global.httpsCertSecret }}
+      {{- if $domainName }}
+      hosts:
+        - {{ $domainName }}
+      {{- end }}
+
+  rules:
+    - http:
+        {{- if $domainName }}
+        host: {{ $domainName }}
+        {{ else }}
+        # host:  ## Not specified because global.PublicAddress is an IP address
+        {{ end -}}
+        paths:
+          - path: /swagger/?(.*)
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+{{- end }}

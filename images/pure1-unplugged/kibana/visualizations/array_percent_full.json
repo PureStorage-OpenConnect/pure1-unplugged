@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+      "title" : "Array Percent Full",
+      "visState" : "{\"aggs\":[{\"enabled\":true,\"id\":\"1\",\"params\":{\"aggregate\":\"average\",\"customLabel\":\"Percent Full\",\"field\":\"PercentFull\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\"},\"schema\":\"metric\",\"type\":\"top_hits\"},{\"enabled\":true,\"id\":\"2\",\"params\":{\"customLabel\":\"Array\",\"field\":\"DisplayName\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"order\":\"desc\",\"orderAgg\":{\"enabled\":true,\"id\":\"2-orderAgg\",\"params\":{\"field\":\"PercentFull\"},\"schema\":{\"aggFilter\":[\"!top_hits\",\"!percentiles\",\"!median\",\"!std_dev\",\"!derivative\",\"!moving_avg\",\"!serial_diff\",\"!cumulative_sum\",\"!avg_bucket\",\"!max_bucket\",\"!min_bucket\",\"!sum_bucket\"],\"deprecate\":false,\"editor\":false,\"group\":\"none\",\"hideCustomLabel\":true,\"max\":null,\"min\":0,\"name\":\"orderAgg\",\"params\":[],\"title\":\"Order Agg\"},\"type\":\"max\"},\"orderBy\":\"custom\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"size\":5},\"schema\":\"group\",\"type\":\"terms\"}],\"params\":{\"addLegend\":true,\"addTooltip\":true,\"gauge\":{\"backStyle\":\"Full\",\"colorSchema\":\"Green to Red\",\"colorsRange\":[{\"from\":0,\"to\":0.6},{\"from\":0.6,\"to\":0.9},{\"from\":0.9,\"to\":1}],\"extendRange\":true,\"gaugeColorMode\":\"Labels\",\"gaugeStyle\":\"Full\",\"gaugeType\":\"Arc\",\"invertColors\":false,\"labels\":{\"color\":\"black\",\"show\":true},\"orientation\":\"vertical\",\"percentageMode\":true,\"scale\":{\"color\":\"#333\",\"labels\":false,\"show\":true},\"style\":{\"bgColor\":false,\"bgFill\":\"#eee\",\"bgMask\":false,\"bgWidth\":0.9,\"fontSize\":60,\"labelColor\":true,\"mask\":false,\"maskBars\":50,\"subText\":\"\",\"width\":0.9},\"type\":\"meter\",\"verticalSplit\":false},\"isDisplayWarning\":false,\"type\":\"gauge\"},\"title\":\"Array Percent Full Gauge\",\"type\":\"gauge\"}",
+      "uiStateJSON" : "{}",
+      "description" : "",
+      "version" : 1,
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-01-29T01:11:42.777Z"
+}

@@ -1,0 +1,18 @@
+{
+    "dashboard" : {
+      "title" : "Main Dashboard",
+      "hits" : 0,
+      "description" : "",
+      "panelsJSON" : "[{\"embeddableConfig\":{},\"gridData\":{\"h\":15,\"i\":\"4\",\"w\":24,\"x\":0,\"y\":14},\"id\":\"array_read_latency_heatmap_viz\",\"panelIndex\":\"4\",\"title\":\"Read Latency Heatmap\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":15,\"i\":\"5\",\"w\":24,\"x\":24,\"y\":14},\"id\":\"array_write_latency_heatmap_viz\",\"panelIndex\":\"5\",\"title\":\"Write Latency Heatmap\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":13,\"i\":\"6\",\"w\":48,\"x\":0,\"y\":42},\"id\":\"array_main_performance_summary_viz\",\"panelIndex\":\"6\",\"title\":\"Daily Average Performance Summary\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":5,\"i\":\"7\",\"w\":48,\"x\":0,\"y\":0},\"id\":\"array_main_control_viz\",\"panelIndex\":\"7\",\"title\":\"Control\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":13,\"i\":\"9\",\"w\":24,\"x\":24,\"y\":29},\"id\":\"array_main_capacity_summary_viz\",\"panelIndex\":\"9\",\"title\":\"Capacity Summary\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":13,\"i\":\"10\",\"w\":24,\"x\":0,\"y\":29},\"id\":\"array_main_object_summary_viz\",\"panelIndex\":\"10\",\"title\":\"Object Summary\",\"type\":\"visualization\",\"version\":\"6.5.4\"},{\"embeddableConfig\":{},\"gridData\":{\"h\":9,\"i\":\"11\",\"w\":48,\"x\":0,\"y\":5},\"id\":\"array_percent_full_gauge_viz\",\"panelIndex\":\"11\",\"title\":\"Percent Full Gauge\",\"type\":\"visualization\",\"version\":\"6.5.4\"}]",
+      "optionsJSON" : "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+      "version" : 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-1d",
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+      }
+    },
+    "type" : "dashboard",
+    "updated_at" : "2019-01-29T23:50:27.210Z"
+  }

@@ -1,0 +1,14 @@
+{
+  "visualization" : {
+    "title": "File System Performance Summary",
+    "visState": "{\"title\":\"File System Performance Summary\",\"type\":\"table\",\"params\":{\"perPage\":10,\"showPartialRows\":false,\"showMetricsAtAllLevels\":false,\"sort\":{\"columnIndex\":5,\"direction\":\"asc\"},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"ArrayDisplayName\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Array Name\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"VolumeName\",\"size\":10000,\"order\":\"asc\",\"orderBy\":\"_key\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"File System Name\"}}]}",
+    "uiStateJSON" : "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":5,\"direction\":\"asc\"}}}}",
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON" : "{\"index\":\"pure_volumes_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+    }
+  },
+  "type" : "visualization",
+  "updated_at" : "2019-01-29T06:16:37.424Z"
+}

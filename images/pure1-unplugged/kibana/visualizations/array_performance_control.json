@@ -1,0 +1,14 @@
+{
+  "visualization" : {
+    "title" : "Array Performance Control",
+    "visState": "{\"title\":\"Array Performance Control\",\"type\":\"input_control_vis\",\"params\":{\"controls\":[{\"id\":\"1559782644613\",\"indexPattern\":\"pure_arrays_metrics_all\",\"fieldName\":\"DisplayName\",\"parent\":\"\",\"label\":\"Array Name\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"dynamicOptions\":true,\"size\":5,\"order\":\"desc\"}},{\"id\":\"1559782657192\",\"indexPattern\":\"pure_arrays_metrics_all\",\"fieldName\":\"ArrayType\",\"parent\":\"\",\"label\":\"Array Type\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"dynamicOptions\":true,\"size\":5,\"order\":\"desc\"}}],\"updateFiltersOnChange\":true,\"useTimeFilter\":false,\"pinFilters\":false},\"aggs\":[]}",
+    "uiStateJSON" :"{}",
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON" : "{\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+    }
+  },
+  "type" : "visualization",
+  "updated_at" : "2019-01-29T06:16:07.477Z"
+}

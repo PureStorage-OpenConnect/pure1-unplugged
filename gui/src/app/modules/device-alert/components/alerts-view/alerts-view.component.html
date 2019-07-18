@@ -1,0 +1,74 @@
+<pagination-indicator #pagination [itemsPerPage]=PAGE_SIZE (pageChange)="reconnectAlertService()"></pagination-indicator>
+<div class="table-fixed-header-container">
+    <table class="table table-bordered table-hover table-fixed-header message-list-view">
+        <thead class="thead-default">
+            <tr class="multiline">
+                <th class="icon-column" (click)="sortClick('severity')">
+                    <div class="manual-sort" [ngClass]="getSortStyle('severity')" [inlineSVG]="'assets/images/caret-down.svg'"></div>
+                </th>
+                <th>
+                    <div class="column-group-title" (click)="sortClick('device_name')">
+                        Array
+                        <div class="manual-sort" [ngClass]="getSortStyle('device_name')" [inlineSVG]="'assets/images/caret-down.svg'"></div>
+                    </div>
+                    <div class="column-headings">
+                        <div class="column-heading">
+                            <input class="form-control input-sm term-input custom-text" type="search" [ngModel]="deviceQuery" (ngModelChange)="onDeviceNameInputChange($event)">
+                        </div>
+                    </div>
+                </th>
+                <th class="column-group-title" (click)="sortClick('created')">
+                    Created
+                    <div class="manual-sort" [ngClass]="getSortStyle('created')" [inlineSVG]="'assets/images/caret-down.svg'"></div>
+                </th>
+                <th class="weight-2">
+                    <div class="column-group-title" (click)="sortClick('summary')">
+                        Summary
+                        <div class="manual-sort" [ngClass]="getSortStyle('summary')" [inlineSVG]="'assets/images/caret-down.svg'"></div>
+                    </div>
+                    <div class="column-headings">
+                        <div class="column-heading">
+                            <input class="form-control input-sm term-input custom-text" type="search" [ngModel]="summaryQuery" (ngModelChange)="onSummaryInputChange($event)">
+                        </div>
+                    </div>
+                </th>
+                <th class="column-group-title" (click)="sortClick('state')">
+                    Status
+                    <div class="manual-sort" [ngClass]="getSortStyle('state')" [inlineSVG]="'assets/images/caret-down.svg'"></div>
+                    <div class="column-headings">
+                        <div class="column-heading">
+                            <select class="form-control input-sm custom-select pure-select term-input" id="status-select" [ngModel]="statusQuery" (ngModelChange)="onStatusInputChange($event)" (click)="$event.stopPropagation()">
+                                <option value="all">All</option>
+                                <option *ngFor="let state of states; trackBy: trackByState" value="{{state}}">{{state | titlecase}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="message-row" *ngFor="let alert of alerts; trackBy: trackByAlertAndDeviceID">
+                <td class="icon-column-icon-cell">
+                    <alert-indicator severity='{{alert.Severity}}' iconWidth="16px" ngbTooltip="{{alert.Severity | titlecase}}"></alert-indicator>
+                </td>
+                <td>
+                    <a href="//{{alert.ArrayHostname}}" target="_blank">
+                        {{alert.ArrayDisplayName}}
+                    </a>
+                </td>
+                <td>
+                    <span *ngIf="!alert.Created">-</span>
+                    {{alert.Created | date: 'yyyy-MM-dd hh:mm:ss'}}
+                </td>
+                <td class="weight-2">
+                    <a href="{{alert.getKBLink()}}" target="_blank">
+                        {{alert.Summary}}
+                    </a>
+                </td>
+                <td>{{alert.State ? alert.State : 'unknown' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

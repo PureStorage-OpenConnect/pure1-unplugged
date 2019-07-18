@@ -1,0 +1,118 @@
+<div class="card-div" [class.flip]="flipped">
+  <div class="card-flip small-card">
+    <div class="card card-front">
+      <div class="card-header">
+        <div class="card-tag-icon card-flip-b" (click)="tagIconClick()">
+          <div [inlineSVG]="'assets/images/tag_icon.svg'"></div>
+        </div>
+        <div class="card-array-title">
+          <a href="//{{device.mgmt_endpoint}}" target="_blank">
+            <span>{{device.name}}</span>
+          </a>
+        </div>
+        <alert-indicator class="card-alert-indicator card-flip-b" iconWidth="20px" iconHeight="20px" severity='{{getHighestSeverity()}}' (click)="onFlipClick()"></alert-indicator>
+      </div>
+      <div>
+        <div class="container-fluid array-info">
+          <div class="row">
+            <div class="col-xs-6">{{device?.model}}</div>
+            <div class="col-xs-6">{{device?.version}}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="device.status === 'Connecting'">
+        Connecting...
+      </div>
+      <div *ngIf="device.status === 'Connected'">
+        <div *ngIf="latestMetric">
+          <div class="card-array-stats">
+            <div class="card-array-stats-capacity">
+              <dial percentFull={{dataPercentFull}} size=125 status="{{dataStatus}}"></dial>
+              <div class="card-capacity">
+                <div class="card-capacity-perc">{{dataPercentFullRounded}}</div>
+                <div class="card-capacity-str">{{dataUsageString}}</div>
+              </div>
+            </div>
+            <div class="card-array-stats-dr">
+              <div class="data-reduction-ratio">{{latestMetric?.DataReduction | number:'1.1-1'}} to 1</div>
+              <div class="data-reduction-string">Data Reduction</div>
+            </div>
+          </div>
+          <div class="card-perf-wrapper">
+            <div class="card-perf-stats clearfix latency">
+              <div class="card-perf-title">
+                Latency <div class="perf-unit">(ms)</div>
+              </div>
+              <div class="card-perf-metrics dual-latency">
+                <div class="card-perf-read">
+                  <div class="perf-type">R</div>
+                  <div class="perf-value">{{latestMetric?.ReadLatency / 1000 | number:'1.2-2'}}</div>
+                </div>
+                <div class="card-perf-divider"></div>
+                <div class="card-perf-write">
+                    <div class="perf-type">W</div>
+                    <div class="perf-value">{{latestMetric?.WriteLatency / 1000 | number:'1.2-2'}}</div>
+                </div>
+                <div *ngIf="isFlashBlade()" class="card-perf-divider"></div>
+                <div *ngIf="isFlashBlade()" class="card-perf-other">
+                  <div class="perf-type">O</div>
+                  <div class="perf-value">{{latestMetric?.OtherLatency / 1000 | number:'1.2-2'}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-perf-stats clearfix">
+              <div class="card-perf-metrics">
+                <div class="card-perf-read">
+                  <div class="card-perf-title">IOPS</div>
+                  <div class="perf-value">{{iopsString}}</div>
+                  <div class="perf-unit">{{iopsSuffix}}</div>
+                </div>
+                <div class="card-perf-divider"></div>
+                <div class="card-perf-write">
+                  <div class="card-perf-title">Bandwidth</div>
+                  <div class="perf-value">{{bandwidthString}}</div>
+                  <div class="perf-unit">{{bandwidthSuffix}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!latestMetric">
+          Connected, waiting for metrics data...<br><br>
+          This may take a little while (up to ~30 seconds)
+        </div>
+      </div>
+      <div *ngIf="device.status.indexOf('Error') !== -1">
+        <div class="array-disconnected-message">
+          <div class="array-disconnected-icon" [inlineSVG]="'assets/images/array_disconnected_icon.svg'"></div>
+          <div style="word-wrap: break-word; white-space:initial;">
+            {{device.status}}<br><br>
+            Last seen {{getAsOfText()}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-back">
+      <div class="card-header">
+        <div class="card-array-title">
+          <a href="//{{device.mgmt_endpoint}}" target="_blank">
+            <span>{{device.name}}</span>
+          </a>
+        </div>
+        <alert-indicator class="card-alert-indicator card-flip-b" iconWidth="20px" iconHeight="20px" severity='{{getHighestSeverity()}}' (click)="onFlipClick()"></alert-indicator>
+      </div>
+      <div class="card-alert-summary">{{alerts.length}} open alert{{alerts.length === 1 ? '' : 's'}}</div>
+      <div class="slimScrollDiv" slimScroll [options]="scrollOptions">
+        <div class="array-alert" *ngFor="let alert of alerts; trackBy: trackAlertByID">
+          <alert-indicator class="card-alert-indicator card-flip-b" iconWidth=14px iconHeight=14px severity='{{alert.Severity}}'></alert-indicator>
+          <div class="alert-event">{{alert.Summary}}</div>
+          <div class="alert-opened">{{alert.Created | date: 'yyyy-MM-dd hh:mm:ss'}}</div>
+        </div>
+      </div>
+      <div class="device-delete-button card-flip-b" (click)="deleteIconClick()">
+        Unregister Array
+      </div>
+    </div>
+  </div>
+</div>
+

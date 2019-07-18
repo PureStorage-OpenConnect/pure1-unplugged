@@ -1,0 +1,16 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "directive-selector": [
+            true,
+            "attribute",
+            "app",
+            "camelCase"
+        ],
+        "component-selector": false,
+        "no-console": false,
+        "no-unused-variable": true,
+        "no-duplicate-imports": true,
+        "ordered-imports": true
+    }
+}

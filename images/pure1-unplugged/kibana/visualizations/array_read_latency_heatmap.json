@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+      "title" : "Array Read Latency Heatmap",
+      "visState" : "{\"title\":\"Array Read Latency Heatmap\",\"type\":\"heatmap\",\"params\":{\"type\":\"heatmap\",\"addTooltip\":true,\"addLegend\":true,\"enableHover\":false,\"legendPosition\":\"right\",\"times\":[],\"colorsNumber\":5,\"colorSchema\":\"Green to Red\",\"setColorRange\":true,\"colorsRange\":[{\"from\":0,\"to\":100},{\"from\":100,\"to\":300},{\"from\":300,\"to\":600},{\"from\":600,\"to\":1000},{\"from\":1000,\"to\":2000},{\"from\":2000,\"to\":5000},{\"from\":5000,\"to\":1000000},{\"from\":1000000,\"to\":10000000}],\"invertColors\":false,\"percentageMode\":false,\"valueAxes\":[{\"show\":false,\"id\":\"ValueAxis-1\",\"type\":\"value\",\"scale\":{\"type\":\"log\",\"defaultYExtents\":false},\"labels\":{\"show\":false,\"rotate\":0,\"overwriteColor\":false,\"color\":\"#555\"}}]},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"ReadLatency\",\"customLabel\":\"Read Latency (ms)\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"DisplayName\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"Array\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"CreatedAt\",\"timeRange\":{\"from\":\"now-15m\",\"to\":\"now\",\"mode\":\"quick\"},\"useNormalizedEsInterval\":true,\"interval\":\"custom\",\"drop_partials\":false,\"customInterval\":\"30s\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Timestamp\"}}]}",
+      "uiStateJSON" : "{\"vis\":{\"colors\":{\"1.000 - 2.000\":\"#F2C96D\",\"1000.000 - 10000.000\":\"#58140C\",\"2.000 - 5.000\":\"#EF843C\",\"5.000 - 1000.000\":\"#BF1B00\"},\"defaultColors\":{\"0.000 - 0.100\":\"rgb(0,104,55)\",\"0.100 - 0.300\":\"rgb(45,161,85)\",\"0.300 - 0.600\":\"rgb(135,203,103)\",\"0.600 - 1.000\":\"rgb(204,233,131)\",\"1.000 - 2.000\":\"rgb(255,255,190)\",\"2.000 - 5.000\":\"rgb(254,211,128)\",\"5.000 - 1000.000\":\"rgb(249,142,82)\",\"1000.000 - 10000.000\":\"rgb(222,63,46)\"}}}",
+      "description" : "",
+      "version" : 1,
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON" : "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-01-29T06:07:25.305Z"
+}

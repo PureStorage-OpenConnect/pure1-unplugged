@@ -1,0 +1,22 @@
+{
+  "search" : {
+    "title": "Log Errors",
+    "columns": [
+      "level",
+      "message",
+      "source",
+      "frame_function"
+    ],
+    "sort": [
+      "timestamp",
+      "desc"
+    ],
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON": "{\"index\":\"log_error_all\",\"highlightAll\":true,\"version\":true,\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[]}"
+    }
+  },
+  "type" : "search",
+  "updated_at" : "2019-01-29T06:16:22.578Z"
+}

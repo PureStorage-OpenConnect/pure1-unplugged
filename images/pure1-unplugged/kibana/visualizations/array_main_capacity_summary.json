@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+      "title": "Array Main Capacity Summary",
+      "visState": "{\"title\":\"Array Main Capacity Summary\",\"type\":\"table\",\"params\":{\"perPage\":5,\"showPartialRows\":false,\"showMetricsAtAllLevels\":false,\"sort\":{\"columnIndex\":null,\"direction\":null},\"showTotal\":false,\"totalFunc\":\"sum\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"PercentFull\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Percent Full\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"bucket\",\"params\":{\"field\":\"DisplayName\",\"size\":1000,\"order\":\"asc\",\"orderBy\":\"_key\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"customLabel\":\"Array\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"DataReduction\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Data Reduction\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"UsedSpace\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Used Space\"}},{\"id\":\"5\",\"enabled\":true,\"type\":\"top_hits\",\"schema\":\"metric\",\"params\":{\"field\":\"TotalSpace\",\"aggregate\":\"concat\",\"size\":1,\"sortField\":\"CreatedAt\",\"sortOrder\":\"desc\",\"customLabel\":\"Total Space\"}}]}",
+      "uiStateJSON" : "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
+      "description" : "",
+      "version" : 1,
+      "kibanaSavedObjectMeta" : {
+        "searchSourceJSON": "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+      }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-01-29T06:16:22.578Z"
+}

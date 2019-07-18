@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dex.fullname" . }}
+  labels:
+    app: {{ include "dex.name" . }}
+    chart: {{ include "dex.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ include "dex.name" . }}
+    release: {{ .Release.Name }}

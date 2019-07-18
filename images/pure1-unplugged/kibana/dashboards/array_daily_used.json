@@ -1,0 +1,18 @@
+{
+  "dashboard" : {
+    "title" : "Array Daily Used Dashboard",
+    "hits" : 0,
+    "description" : "",
+    "panelsJSON": "[{\"embeddableConfig\":{},\"gridData\":{\"h\":45,\"i\":\"1\",\"w\":48,\"x\":0,\"y\":0},\"id\":\"array_daily_used_space_viz\",\"title\":\"Daily Used Space\",\"panelIndex\":\"1\",\"type\":\"visualization\",\"version\":\"6.5.4\"}]",
+    "optionsJSON": "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+    "version" : 1,
+    "timeRestore": true,
+    "timeTo": "now",
+    "timeFrom": "now-31d",
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON" : "{\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+    }
+  },
+  "type" : "dashboard",
+  "updated_at" : "2019-01-30T06:26:23.783Z"
+}

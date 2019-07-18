@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "monitor-server.fullname" . }}
+  labels:
+    app: {{ template "monitor-server.name" . }}
+    chart: {{ template "monitor-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "monitor-server.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "monitor-server.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.global.pure1unplugged.image.repository }}:{{ .Values.global.pure1unplugged.image.tag }}"
+          imagePullPolicy: {{ .Values.global.pure1unplugged.image.pullPolicy }}
+          command: [ "pure1-unplugged-monitor-server" ]
+          env:
+            - name: PURE_DISCOVERY_TYPE
+              value: pure1
+            - name: PURE_DISCOVERY_PURE1_HOST
+              value: pure1-unplugged-api-server
+            - name: ELASTIC_HOST
+              value: pure1-unplugged-elasticsearch-client:9200
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

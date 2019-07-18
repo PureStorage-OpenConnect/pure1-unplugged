@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "swagger-server.fullname" . }}-swagger-file
+  labels:
+    app: {{ template "swagger-server.name" . }}
+    chart: {{ template "swagger-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ (.Files.Glob "api-server-swagger.yaml").AsConfig | indent 2 }}

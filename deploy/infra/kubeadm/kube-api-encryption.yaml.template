@@ -1,0 +1,19 @@
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
+resources:
+  - resources:
+      - secrets
+      - authcodes.dex.coreos.com
+      - authrequests.dex.coreos.com
+      - connectors.dex.coreos.com
+      - oauth2clients.dex.coreos.com
+      - offlinesessionses.dex.coreos.com
+      - passwords.dex.coreos.com
+      - refreshtokens.dex.coreos.com
+      - signingkeies.dex.coreos.com
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: "{{ .EncryptionKey }}"
+      - identity: {}

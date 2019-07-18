@@ -1,0 +1,53 @@
+<div id="page-wrapper" [class.retracted]="retracted" [class.smallWindow]="smallWindow" (click)="pageClick($event)">
+  <sidebar [smallWindow]="smallWindow" (toggled)="onSidebarToggled($event)"></sidebar>
+
+  <div id="page-content-wrapper">
+    <div id="topbar">
+      <div id="topbar-title">
+        <img id="toggle-icon" src="assets/images/pure1_hamburger_menu.svg" (click)="onSidebarToggleClick()"/>
+        <h1 class="page-title">{{sidebar?.activeTab?.title}}</h1>
+      </div>
+    
+      <div id="topbar-right">
+        <div class="topbar-item topbar-item-user" (click)="onUserClick()">
+          <div class="p-profile-user">
+            <div class="p-profile-greeting">
+              <span class="p-profile-text p-profile-name">{{username}}</span>
+              <span class="p-profile-text p-profile-role">Admin</span>
+            </div>
+            <div class="p-profile-collapse-button">
+              <span class="pureui-collapse-btn pureui-collapsed">
+                <span [class.opened]="logoutModalOpen" [inlineSVG]="'assets/images/caret-down.svg'" class="user-window-caret"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="topbar-item topbar-item-summary">
+            <div class="topbar-icon-with-count" ngbTooltip="{{warningCount}} open warning alert{{warningCount === 1 ? '' : 's'}}" placement="bottom">
+              <a [routerLink]="['messages']" [queryParams]="{filter: warningIconFilter}">
+                <div class="pstg-secondary-icon topbar-icon" [class.disabled]="warningCount === 0" [inlineSVG]="'assets/icons/secondary/alert_warning.svg'"></div>
+                <span class="tag tag-danger tag-pill">{{warningCount}}</span>
+              </a>
+            </div>
+            <div class="topbar-icon-with-count" ngbTooltip="{{criticalCount}} open critical alert{{criticalCount === 1 ? '' : 's'}}" placement="bottom">
+              <a [routerLink]="['messages']" [queryParams]="{filter: criticalIconFilter}">
+                <div class="pstg-secondary-icon topbar-icon" [class.disabled]="criticalCount === 0" [inlineSVG]="'assets/icons/secondary/alert_critical.svg'"></div>
+                <span class="tag tag-danger tag-pill">{{criticalCount}}</span>
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="logout-modal-wrapper" [class.open]="logoutModalOpen">
+      <div class="logout-modal">
+        <span id="pureui-logout-text" (click)="logoutClick()">
+          <div class="pstg-action-icon modal-logout-icon" [inlineSVG]="'assets/icons/action/logout.svg'"></div>
+          Log Out
+        </span>
+      </div>
+    </div>
+    <div id="tab-content" class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

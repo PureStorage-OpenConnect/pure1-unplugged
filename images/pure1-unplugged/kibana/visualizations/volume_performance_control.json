@@ -1,0 +1,14 @@
+{
+  "visualization" : {
+    "title": "Volume Performance Control",
+    "visState": "{\"title\":\"Volume Performance Control\",\"type\":\"input_control_vis\",\"params\":{\"controls\":[{\"id\":\"1559839772672\",\"indexPattern\":\"pure_volumes_metrics_all\",\"fieldName\":\"VolumeName\",\"parent\":\"\",\"label\":\"Volume Name\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"dynamicOptions\":true,\"size\":5,\"order\":\"desc\"}},{\"id\":\"1559839780434\",\"indexPattern\":\"pure_volumes_metrics_all\",\"fieldName\":\"ArrayDisplayName\",\"parent\":\"\",\"label\":\"Array Name\",\"type\":\"list\",\"options\":{\"type\":\"terms\",\"multiselect\":true,\"dynamicOptions\":true,\"size\":5,\"order\":\"desc\"}}],\"updateFiltersOnChange\":true,\"useTimeFilter\":false,\"pinFilters\":false},\"aggs\":[]}",
+    "uiStateJSON" :"{}",
+    "description" : "",
+    "version" : 1,
+    "kibanaSavedObjectMeta" : {
+      "searchSourceJSON" : "{\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+    }
+  },
+  "type" : "visualization",
+  "updated_at" : "2019-01-29T06:16:07.477Z"
+}

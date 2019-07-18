@@ -1,0 +1,51 @@
+<div #sidebar id="sidebar-wrapper" [class.retracted]="retracted" [class.smallWindow]="smallWindow">
+  <div id="sidebar-branding" (click)="onSidebarToggleClick()">
+    <div id="sidebar-branding-logo" class="sidebar-logo" [inlineSVG]="'assets/images/pure1_logo_light.svg'"></div>
+    <div id="sidebar-branding-text" [inlineSVG]="'assets/images/pure1_unplugged_logo_text_light.svg'"></div>
+    <img id="sidebar-collapse-arrow" src="assets/images/sidebar_collapse_arrow.svg"/>
+  </div>
+
+  <div id="sidebar-nav">
+    <div *ngFor="let tab of tabs" class="sidebar-item" [class.active]="tab.active">
+      <a routerLink="/dash/{{tab.link}}" class="sidebar-item-link" (click)="menuClick()">
+        <div class="sidebar-item-icon pstg-sidebar-icon-color">
+          <div [inlineSVG]="tab.icon"></div>
+        </div>
+
+        <!-- Text -->
+        <span class="sidebar-item-text">
+          {{tab.title}}
+
+          <span *ngIf="tab.title === 'Arrays' && connectedCount < totalCount" class="tag tag-pill sidebar-pill tab-link-pill sidebar-expanded-only">{{connectedCount}} of {{totalCount}}</span>
+        </span>
+      </a>
+
+      <div *ngIf="tab.subTabs" class="sidebar-sub-item-group sidebar-expanded-only">
+        <a *ngFor="let subtab of tab.subTabs" class="sidebar-sub-item" [class.active]="subtab.active" routerLink="/dash/{{subtab.link}}">
+          {{subtab.title}}
+        </a>
+      </div>
+
+      <ul *ngIf="tab.subTabs" class="dropdown-menu sidebar-collapsed-only">
+        <li class="dropdown-menu-title">
+          {{tab.title}}
+        </li>
+        <li *ngFor="let subtab of tab.subTabs" class="menu-item" role="menuitem">
+          <a class="p-tab" [class.active]="subtab.active" routerLink="/dash/{{subtab.link}}">
+            {{subtab.title}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-nav-divider sidebar-expanded-only"></div>
+    <a class="sidebar-top-level-link sidebar-expanded-only" href="https://support.purestorage.com/Pure1/Pure1_Unplugged" target="_blank">Help</a>
+    <a class="sidebar-top-level-link sidebar-expanded-only" href="https://github.com/PureStorage-OpenConnect/pure1-unplugged/" target="_blank">Source</a>
+    <a class="sidebar-top-level-link sidebar-expanded-only" href="https://github.com/PureStorage-OpenConnect/pure1-unplugged/blob/master/LICENSE/" target="_blank">License</a>
+  </div>
+
+  <div id="sidebar-footer">
+    <b>Server: </b> {{getServerStatusString()}}
+    <b>Version: </b> {{appVersion}}
+  </div>
+</div>
+

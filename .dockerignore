@@ -1,0 +1,7 @@
+gui/node_modules
+.git
+# exclude all of the `build` directory except for our bin and gui
+# directories since they need to be in the image
+build
+!build/bin
+!build/gui

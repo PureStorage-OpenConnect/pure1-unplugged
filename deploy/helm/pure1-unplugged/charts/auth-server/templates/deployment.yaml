@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "auth-server.fullname" . }}
+  labels:
+    app: {{ template "auth-server.name" . }}
+    chart: {{ template "auth-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "auth-server.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "auth-server.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: secret-manager
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.global.pure1unplugged.image.repository }}:{{ .Values.global.pure1unplugged.image.tag }}"
+          imagePullPolicy: {{ .Values.global.pure1unplugged.image.pullPolicy }}
+          command: [ "pure1-unplugged-auth-server" ]
+          env:
+            - name: OPENID_CONNECT_ISSUER_URL
+              value: https://{{ .Values.global.publicAddress }}/dex
+            - name: AUTH_SERVER_LISTEN_AT
+              value: http://:80
+            - name: AUTH_SERVER_CALLBACK_URL
+              value: https://{{ .Values.global.publicAddress }}/auth/callback
+            - name: ELASTIC_HOST
+              value: pure1-unplugged-elasticsearch-client:9200
+          ports:
+            - name: http
+              port: 80
+              containerPort: 80
+              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

@@ -1,0 +1,144 @@
+# Define global variables here, this is a reserved keyword!
+global:
+  # publicAddress is the public FQDN or IP address where pure1-unplugged will be reached.
+  # it is highly recommended to use an FQDN in case the IP address shifts over time.
+  publicAddress: pure1-unplugged.example.com
+  httpsCertSecret: pure1-unplugged-https-cert
+
+  pure1unplugged:
+    # Use this to specify how long to keep metrics for devices and volumes, in days. Defaults
+    # to 31 days/1 month
+    metricRetentionPeriod: 31
+
+    # Use this to specify how long alerts should be kept before they are discarded, in days. Defaults to 365 days
+    alertRetentionPeriod: 365
+
+    # Use this to specify how long to keep error/warning log lines before they are discarded, in days. Defaults to 1 day
+    errorLogRetentionPeriod: 1
+
+    # Use this to specify how long to keep timer logs before they are discarded, in days. Defaults to 1 day.
+    # Highly recommended to keep this value low as this is a very large amount of data.
+    timerLogRetentionPeriod: 1
+
+    # Use this to specify how often FlashArray volume metrics information should be collected, in seconds. Defaults to 30 seconds.
+    faVolumeCollectionPeriod: 30
+
+    # Use this to specify how often FlashArray volume (filesystem) metrics information should be collected, in seconds. Defaults to 300 seconds.
+    # Note that anything less than 300 seconds may have performance concerns for the FlashBlade and Pure1 Unplugged.
+    fbVolumeCollectionPeriod: 300
+
+    image:
+      repository: purestorage/pure1-unplugged
+      # Tag needs to be either overwritten by a caller, or swapped with the real one at "build" time
+      # of the pure1-unplugged install bundle
+      tag: @PURE1_UNPLUGGED_VERSION@
+      pullPolicy: IfNotPresent
+
+dex:
+  tokenTTL: 30m
+  enablePasswordDBConnector: true
+  staticPasswords:
+    - email: "admin@example.com"
+      # bcrypt hash of the string "password"
+      hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"
+      username: "admin"
+      userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
+  
+  connectors:
+    - type: ldap
+      id: ldap
+      name: LDAP
+      config:
+        host: ldap.forumsys.com:389
+        insecureNoSSL: true # NOTE: this is subject to removal at any point as this is intrinsically very VERY insecure!
+        insecureSkipVerify: true
+        bindDN: cn=read-only-admin,dc=example,dc=com
+        bindPW: password
+        usernamePrompt: SSO Username
+        userSearch:
+          baseDN: dc=example,dc=com
+          filter: "(objectClass=person)"
+          username: uid
+          idAttr: uid
+          emailAttr: mail
+          nameAttr: cn
+        groupSearch:
+          baseDN: dc=example,dc=com
+          filter: "(objectClass=groupOfUniqueNames)"
+          userAttr: uid
+          groupAttr: uniqueMember
+          nameAttr: cn
+    # Example Github connector
+    #- type: github
+    #  id: github
+    #  name: GitHub
+    #  config:
+    #    clientID: $GITHUB_CLIENT_ID
+    #    clientSecret: $GITHUB_CLIENT_SECRET
+    #    redirectURI: https://{{ .Values.global.publicAddress }}/dex/callback
+    #    org: kubernetes
+        # oauth2:
+        #   skipApprovalScreen: true
+    - type: mockCallback
+      id: mock
+      name: Example
+
+elasticsearch:
+  image:
+    pullPolicy: IfNotPresent
+  initImage:
+    pullPolicy: IfNotPresent
+  cluster:
+    env:
+      MINIMUM_MASTER_NODES: "1"
+      EXPECTED_MASTER_NODES: "1"
+      RECOVER_AFTER_MASTER_NODES: "1"
+      EXPECTED_DATA_NODES: "1"
+  master:
+    replicas: 1
+    persistence:
+      size: "2Gi"
+      storageClass: "elastic-master-pv"
+    resources:
+      requests:
+        memory: "512Mi"
+  client:
+    replicas: 1
+    serviceType: ClusterIP
+    resources:
+      requests:
+        memory: "1024Mi"
+  data:
+    replicas: 1
+    persistence:
+      size: "8Gi"
+      storageClass: "elastic-data-pv"
+    resources:
+      requests:
+        memory: "2048Mi"
+
+kibana:
+  service:
+    type: ClusterIP
+    clusterIP: none
+  env:
+    ELASTICSEARCH_URL: "http://pure1-unplugged-elasticsearch-client:9200"
+    SERVER_HOST: "0.0.0.0"
+    SERVER_BASEPATH: "/kibana"
+    # NOTE: this used to be true when we were on Elasticsearch 6.3.1. Good lesson that upgrading helm charts can break ingress rules.
+    # Leaving this here (but set to the proper value) as a reminder that it can be changed and in case this bug/feature re-manifests later.
+    SERVER_REWRITEBASEPATH: false
+    LOGGING_VERBOSE: "true"
+
+nginx-ingress:
+  controller:
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    service:
+      type: NodePort
+    extraArgs:
+      default-ssl-certificate: pure1-unplugged-https-cert
+      v: 3
+
+ingress:
+  enabled: true

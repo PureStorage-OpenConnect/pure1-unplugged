@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <h3 class="modal-title">New Array Registration</h3>
+  <button type="button" class="close modal-x-button pull-right" (click)="onCancelClick()">
+    <span class="pstg-action-icon" style="width: 12px; height: 12px;">
+      <svg viewBox="0 0 21.7 21.7">
+        <path
+          d="M18.5,21.1l-7.7-7.7l-7.7,7.7c-0.4,0.3-0.8,0.5-1.3,0.5s-0.9-0.1-1.3-0.5c-0.7-0.7-0.7-1.9,0-2.6l7.7-7.7L0.5,3.1 c-0.7-0.7-0.7-1.9,0-2.6c0.7-0.7,1.9-0.7,2.6,0l7.7,7.7l7.7-7.7c0.7-0.7,1.9-0.7,2.6,0c0.7,0.8,0.7,1.9,0,2.6l-7.7,7.7l7.7,7.7 c0.7,0.7,0.7,1.9,0,2.6C21.1,21.1,19.8,22.4,18.5,21.1z">
+        </path>
+      </svg>
+    </span>
+  </button>
+</div>
+<form [formGroup]="deviceForm" (ngSubmit)="onSubmitClick()">
+  <div class="modal-body">
+    <h4>Array Information</h4>
+    <div class="form-group row">
+      <label class="col-xs-4 col-form-label text-xs-right" for="array_name">Name <span
+          class="required-label">*</span></label>
+      <div class="col-xs-8">
+        <input class="form-control term-input" formControlName="array_name" id="array_name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-xs-4 col-form-label text-xs-right" for="mgmt_endpoint">Management Endpoint <span
+          class="required-label">*</span></label>
+      <div class="col-xs-8">
+        <input class="form-control term-input" formControlName="mgmt_endpoint" id="mgmt_endpoint">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-xs-4 col-form-label text-xs-right" for="api_token">API Token <span
+          class="required-label">*</span></label>
+      <div class="col-xs-8">
+        <input class="form-control term-input" formControlName="api_token" id="api_token">
+      </div>
+    </div>
+    <div class="form-group row" [style.display]="deviceForm.value.device_type?'inherit':'none'">
+      <label class="col-xs-4 col-form-label text-xs-right" for="device_type">Array Type <span
+          class="required-label">*</span></label>
+      <div class="col-xs-8">
+        <select class="form-control pure-select custom-select term-input" formControlName="device_type" id="device_type">
+          <option value="FlashArray">FlashArray</option>
+          <option value="FlashBlade">FlashBlade</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer btn-toolbar" role="group">
+    <div class="row">
+      <input type="button" class="btn btn-info" value="Cancel" (click)="onCancelClick()" />
+      <input type="submit" class="btn btn-primary" value="Create" [disabled]="!deviceForm.valid" />
+    </div>
+  </div>
+</form>

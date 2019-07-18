@@ -1,0 +1,9 @@
+# This template runs when building the actual install ISO (after building the anaconda img)
+
+# Assume pure1-unplugged-boot-config has already been installed
+# We have to use some magic to copy things to the right place since the workdir
+# that the final x86 templates key off of is outside the installtree for some reason..
+log "Setting up ${workdir}/iso-graft"
+runcmd mkdir ${workdir}/iso-graft
+runcmd cp -r ${workdir}/installroot/Packages ${workdir}/iso-graft
+runcmd cp -r ${workdir}/installroot/repodata ${workdir}/iso-graft

@@ -1,0 +1,19 @@
+<div class="btn-toolbar">
+    <div class="pagination-buttons btn-group flex-btn-group flex-btn-group-last">
+        <div class="nav-pagination btn-group event-input float-xs-right" role="group">
+            <div class="btn btn-secondary btn-no-hover count-range hover">
+                <span class="current-count">{{itemCount === 0 ? 0 : currentPage*itemsPerPage + 1}}-{{getCurrentPageEndingIndex()}}</span>
+                <span class="total-count"> of {{itemCount}}</span>
+            </div>
+            <button bluronclick class="btn btn-secondary change-page with-action-icon" type="button" (click)="pageClick(-1)"
+                [disabled]="currentPage <= 0">
+                <div class="pstg-action-icon" [inlineSVG]="'assets/images/chevron-left.svg'"></div>
+            </button>
+            <button bluronclick class="btn btn-secondary change-page with-action-icon" type="button" (click)="pageClick(1)"
+                [disabled]="currentPage >= getPageCount() - 1">
+                <div class="pstg-action-icon" [inlineSVG]="'assets/images/chevron-right.svg'"></div>
+            </button>
+        </div>
+    </div>
+</div>
+

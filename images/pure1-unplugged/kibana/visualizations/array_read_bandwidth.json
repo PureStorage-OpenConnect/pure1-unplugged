@@ -1,0 +1,14 @@
+{
+    "visualization" : {
+        "title": "Array Read Bandwidth",
+        "visState": "{\"aggs\":[{\"enabled\":true,\"id\":\"1\",\"params\":{\"customLabel\":\"Read Bandwidth (per sec)\",\"field\":\"ReadBandwidth\"},\"schema\":\"metric\",\"type\":\"avg\"},{\"enabled\":true,\"id\":\"3\",\"params\":{\"field\":\"DisplayName\",\"missingBucket\":false,\"missingBucketLabel\":\"Missing\",\"order\":\"desc\",\"orderBy\":\"1\",\"otherBucket\":false,\"otherBucketLabel\":\"Other\",\"size\":10},\"schema\":\"group\",\"type\":\"terms\"},{\"enabled\":true,\"id\":\"2\",\"params\":{\"customInterval\":\"30s\",\"customLabel\":\"Timestamp\",\"drop_partials\":false,\"extended_bounds\":{},\"field\":\"CreatedAt\",\"interval\":\"custom\",\"min_doc_count\":1,\"useNormalizedEsInterval\":true},\"schema\":\"segment\",\"type\":\"date_histogram\"}],\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"show\":true,\"truncate\":100},\"position\":\"bottom\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":true,\"style\":{\"color\":\"#eee\"},\"valueAxis\":\"ValueAxis-1\"},\"legendPosition\":\"right\",\"seriesParams\":[{\"data\":{\"id\":\"1\",\"label\":\"Read Bandwidth (per sec)\"},\"drawLinesBetweenPoints\":true,\"interpolate\":\"linear\",\"mode\":\"normal\",\"show\":\"true\",\"showCircles\":true,\"type\":\"line\",\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"line\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"left\",\"scale\":{\"defaultYExtents\":true,\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"Read Bandwidth (per sec)\"},\"type\":\"value\"}]},\"title\":\"Array Read Bandwidth (per sec)\",\"type\":\"line\"}",
+        "uiStateJSON": "{}",
+        "description": "",
+        "version": 1,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"pure_arrays_metrics_all\",\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[]}"
+        }
+    },
+    "type" : "visualization",
+    "updated_at" : "2019-04-18T19:55:52.250Z"
+  }

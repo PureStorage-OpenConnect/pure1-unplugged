@@ -1,0 +1,111 @@
+// Copyright 2019, Pure Storage Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+.modal-header {
+    .modal-title {
+      text-transform: none; // Unsetting from standard modal because we don't want the device name to be capitalized
+    }
+  }  
+
+label {
+    width: 100%;
+
+    #instruction-text {
+        font-size: 8pt;
+        color: #5c5c5c;
+    }
+
+    textarea {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+.tag-list-wrapper {
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+    margin-bottom: 10px;
+    border-bottom: solid 1px transparent;
+
+    .tl-header {
+        padding-left: 1px;
+
+        .tl-header-title {
+            display: inline-block;
+            width: 255px;
+            margin-right: 10px;
+            color: #8d8d8d;
+            font-size: 110%;
+            font-weight: 700;
+            padding-left: 8px;
+        }
+    }
+}
+
+.tag-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.key-input, .value-input {
+    display: inline-block;
+    margin: 3px 5px;
+    width: 40%;
+    flex: 1;
+}
+
+.tag-delete-icon {
+    width: 20px;
+    height: 20px;
+    padding: 7px 0px;
+    fill: #8d8d8d;
+
+    :hover {
+        fill: #cccccc;
+    }
+
+    .device-delete-icon-svg {
+        cursor: pointer;
+    }
+}
+
+.add-tag-button {
+    min-width: 50px;
+    padding: 0;
+    min-height: 22px;
+    height: 22px;
+    line-height: 22px;
+
+    #add-text {
+        margin-left: 2px;
+    }
+}
+.ng-invalid:not(form) {
+    border-left: red;
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+.modal-content {
+    width: 600px;
+}
+
+.row {
+    .btn {
+        margin-left: 15px;
+    }
+}

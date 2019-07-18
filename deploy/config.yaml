@@ -1,0 +1,65 @@
+global:
+  # publicAddress is the public FQDN or IP address where pure1-unplugged will be reached.
+  # it is highly recommended to use an FQDN in case the IP address shifts over time.
+  # Ensure that this is resolvable by both the Pure1 Unplugged host and clients wanting to
+  # connect to it.
+  # If this changes the Pure1 Unplugged application must to be re-installed to pick up the change.
+  publicAddress: pure1-unplugged.example.com
+
+  # The pod and service CIDR's will be used for the application infrastructure to
+  # run containers and their associated services on. They must be >=16 sized and
+  # cannot overlap with each other or real networks. They should be internal only.
+  # !! If these change the app infrastructure must be reset and initialized !!
+  #podCIDR: "192.168.0.0/16"
+  #serviceCIDR: "10.96.0.0/12"
+
+  # If set to true the installer will generate self-signed SSL cert and key, overriding the
+  # settings for sslCertFile and sslKeyFile. If using the customized key and cert files this
+  # must be set to false! If set to true it will overwrite the files at those locations.
+  #createSelfSignedCerts: true
+
+  # The SSL cert and key file locations are used by puctl when deploying to create
+  # the secrets used by the ingress server to do HTTPS termination.
+  # If these change the Pure1 Unplugged application should be re-installed to pick up the change.
+  #sslCertFile: /etc/pure1-unplugged/ssl/pure1-unplugged.crt
+  #sslKeyFile: /etc/pure1-unplugged/ssl/pure1-unplugged.key
+
+  pure1unplugged:
+    # Use this to specify how long to keep metrics for devices and volumes, in days. Defaults
+    # to 31 days/1 month
+    metricRetentionPeriod: 31
+
+    # Use this to specify how long alerts should be kept before they are discarded, in days. Defaults to 365 days
+    alertRetentionPeriod: 365
+
+    # Use this to specify how long to keep error/warning log lines before they are discarded, in days. Defaults to 1 day
+    errorLogRetentionPeriod: 1
+
+    # Use this to specify how long to keep timer logs before they are discarded, in days. Defaults to 1 day.
+    # Highly recommended to keep this value low as this is a very large amount of data.
+    timerLogRetentionPeriod: 1
+
+    # Use this to specify how often FlashArray volume metrics information should be collected, in seconds. Defaults to 30 seconds.
+    faVolumeCollectionPeriod: 30
+
+    # Use this to specify how often FlashArray volume (filesystem) metrics information should be collected, in seconds. Defaults to 300 seconds.
+    # Note that anything less than 300 seconds may have performance concerns for the FlashBlade and Pure1 Unplugged.
+    fbVolumeCollectionPeriod: 300
+
+dex:
+  # See https://github.com/dexidp/dex for info about how to configure Dex, primarily the different connectors
+  enablePasswordDBConnector: true
+
+  # Note: this key must always be present. If you want no static passwords, simply write it as 
+  # staticPasswords: []
+  staticPasswords:
+  - email: "admin@example.com"
+    # bcrypt hash of the string "password"
+    hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"
+    username: "admin"
+    userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
+  
+  connectors:
+  - type: mockCallback
+    id: mock
+    name: Example

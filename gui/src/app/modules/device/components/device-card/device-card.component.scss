@@ -1,0 +1,441 @@
+// Copyright 2019, Pure Storage Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+$delete-button-height: 50px;
+
+.card-div {
+    white-space: nowrap;
+    width: 285px;
+    height: 350px;
+    margin: 0 7px 11px;
+    text-align: center;
+
+    .card-flip {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        perspective: 1000;
+    
+        .card {
+            border-radius: 4px;
+            border: 1px solid #c5c5c5;
+            display: block;
+            position: relative;
+            background-color: #fff;
+
+            .array-disconnected-message {
+                font-weight: 500;
+                color: #8d8d8d;
+                font-size: 12px;
+                margin-top: 100px;
+                margin-left: 5px;
+                margin-right: 5px;
+                text-align: center;
+
+                .array-disconnected-icon {
+                    height: 30px;
+                    width: 45px;
+                    display: inline-block;
+                }
+            }
+            
+            .card-array-stats {
+                margin: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .card-array-stats-capacity {
+                    position: relative;
+                    display: inline-block;
+                    height: 125px;
+                    width: 125px;
+                    color: #454545;
+
+                    .card-capacity {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        padding-top: 30px;
+    
+                        .card-capacity-perc {
+                            font-weight: 600;
+                            font-size: 36px;
+                            position: relative;
+                            left: 3px;
+                            box-sizing: inherit;
+                        }
+
+                        .card-capacity-perc::after {
+                            content: '%';
+                            font-size: 20px;
+                            box-sizing: inherit;
+                        }
+                        
+                        .card-capacity-str {
+                            color: #8d8d8d;
+                            font-size: 11px;
+                            font-weight: 500;
+                            position: relative;
+                            top: -13px;
+                        }
+                    }
+                }
+
+                .card-array-stats-dr {
+                    display: inline-block;
+                    width: 110px;
+
+                    .data-reduction-ratio {
+                        font-size: 24px;
+                        font-weight: 600;
+                        position: relative;
+                        top: 4px;
+                    }
+
+                    .data-reduction-string {
+                        font-weight: 600;
+                        color: #8d8d8d;
+                        position: relative;
+                        bottom: 4px;
+                    }
+                }
+            }
+
+            .card-perf-wrapper {
+                margin: 0 10px;
+                
+                .card-perf-stats {
+                    border-radius: 4px;
+                    margin-bottom: 5px;
+                    box-sizing: border-box;
+
+                .card-perf-stats.latency {
+                    background-color: #e6e6e6;
+                    min-height: 53px;
+                }
+
+                .card-perf-title {
+                    position: relative;
+                    top: 2px;
+                    margin-bottom: -4px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #8d8d8d;
+                    text-align: center;
+
+                    .perf-unit {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #8d8d8d;
+                        display: inline-block;
+                        width: 0;
+                    }
+                }
+
+                .card-perf-metrics {
+                    display: flex;
+                    justify-content: space-evenly;
+
+                    .card-perf-read, .card-perf-write, .card-perf-other {
+                        flex-grow: 1;
+
+                        .perf-type {
+                            color: #8d8d8d;
+                            font-weight: 600;
+                            width: 12px;
+                            text-align: right;
+                            display: inline-block;
+                        }
+
+                        .perf-value {
+                            font-size: 24px;
+                            font-weight: 600;
+                            color: #454545;
+                            width: 62px;
+                            text-align: right;
+                            padding-right: 2px;
+                            display: inline-block;
+                        }
+
+                            .perf-unit {
+                                color: #454545;
+                                font-weight: 600;
+                                width: 28px;
+                                text-align: left;
+                                display: inline-block;
+                    }
+                        }
+
+                    .card-perf-divider {
+                        width: 1px;
+                        height: 15px;
+                        background-color: #c5c5c5;
+                        margin-top: auto;
+                        margin-bottom: 8px;
+                        flex-grow: 0;
+                    }
+                }
+            }
+
+                .card-perf-stats.latency {
+                    background-color: #e6e6e6;
+                    min-height: 53px;
+                }
+
+                .card-perf-title {
+                    position: relative;
+                    top: 2px;
+                    margin-bottom: -4px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #8d8d8d;
+                    text-align: center;
+
+                    .perf-unit {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #8d8d8d;
+                        display: inline-block;
+                        width: 0;
+                    }
+                }
+            }
+        }
+
+        .card-back, .card-front {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            transition: transform .6s ease;
+            transform-style: preserve-3d;
+            transition: 0.6s;
+            transform-style: preserve-3d;
+            -webkit-transition: 0.6s;
+            -webkit-transform-style: preserve-3d;
+            -moz-transition: 0.6s;
+            -moz-transform-style: preserve-3d;
+            -o-transition: 0.6s;
+            -o-transform-style: preserve-3d;
+            -ms-transition: 0.6s;
+            -ms-transform-style: preserve-3d;
+        }
+    
+        .card-front {
+            z-index: 2;
+            background-color: #fff;
+        
+            .card-header {
+                background-color: #f5f5f5;
+
+                .card-array-title {
+                    text-align: center;
+                    padding: 0;
+                    font-weight: 600;
+                    font-size: 17px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+
+                    a {
+                        color: inherit;
+                    }
+                }
+    
+                alert-indicator {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 22px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    text-align: center;
+                    position: relative;
+                    display: block;
+                }
+                
+                .card-alert-indicator {
+                    position: absolute;
+                    z-index: 1;
+                    right: 10px;
+                    top: 10px;
+                }
+
+                .card-tag-icon {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 22px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    text-align: center;
+                    position: absolute;
+                    z-index: 1;
+                    left: 10px;
+                    top: 10px;
+                    display: block;
+                    fill: #dddddd;
+                }
+            }
+        }
+
+        .card-back {
+            margin-top: 0;
+            transform: rotateY(-180deg);
+            background-color: #454545;
+            border-color: #454545;
+            border-radius: 4px;
+            
+            .card-header {
+                background: transparent;
+                color: white;
+                border-bottom-color: transparent;
+
+                .card-array-title {
+                    text-align: center;
+                    padding: 0;
+                    font-weight: 600;
+                    font-size: 17px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+
+                    a {
+                        color: inherit;
+                    }
+                }
+    
+                alert-indicator {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 22px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    text-align: center;
+                    position: relative;
+                    display: block;
+                }
+                
+                .card-alert-indicator {
+                    position: absolute;
+                    z-index: 1;
+                    right: 10px;
+                    top: 10px;
+                }
+            }
+
+            .card-alert-summary {
+                color: white;
+                font-size: 14px;
+                text-align: left;
+                margin: 10px 0 10px 42px;
+            }
+
+            .array-alert {
+                color: white;
+                position: relative;
+                margin: 0 17px 8px 42px;
+                padding-bottom: 8px;
+                text-align: left;
+
+                alert-indicator {
+                    position: absolute;
+                    left: -30px;
+                    top: 2px;
+                    right: auto;
+                }
+
+                .alert-event {
+                    font-size: 14px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .alert-opened {
+                    font-size: 10px;
+                    color: #8d8d8d;
+                }
+            }
+
+            .slimScrollDiv {
+                overflow-y: auto;
+                position: relative;
+                width: auto;
+                height: calc(265px - #{$delete-button-height});
+            }
+    
+            .container-fluid {
+                margin-left: auto;
+                margin-right: auto;
+                padding-right: 10px;
+                padding-left: 10px;
+    
+                .row {
+                    margin-right: -10px;
+                    margin-left: -10px;
+                    display: flex;
+                    flex-wrap: wrap;
+    
+                    .col-xs-6 {
+                        flex: 0 0 50%;
+                        max-width: 50%;
+                    }
+                }
+            }
+
+            .device-delete-button {
+                height: $delete-button-height;
+                border-top: 1px solid #5e5e5e;
+                margin-top: -7px;
+                cursor: pointer;
+                line-height: $delete-button-height;
+                color: #fff;
+                font-size: 14px;
+
+                &:hover {
+                    background-color: #515151;
+                }
+            }
+        }
+    }
+
+    .small-card .array-info {
+        color: #454545;
+        height: 24px;
+        line-height: 24px;
+        border-bottom: solid 1px #eaeaea;
+    }
+}
+
+.card-div.flip {
+    .card-flip {
+        .card-front {
+            transform: rotateY(180deg);
+        }
+    
+        .card-back {
+            transform: rotateY(0deg);
+        }
+    }
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}

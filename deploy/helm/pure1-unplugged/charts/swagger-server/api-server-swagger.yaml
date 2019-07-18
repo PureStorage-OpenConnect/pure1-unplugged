@@ -1,0 +1,503 @@
+openapi: 3.0.0
+info:
+  title: Pure1 Unplugged API
+  description: The interface provided by the Pure1 Unplugged API Server
+  version: 0.0.1
+servers:
+  - url: /
+    description: This Pure1 Unplugged 2.0 instance
+tags:
+  - name: Device Operations
+    description: Operations regarding the top-level devices
+  - name: Status Operations
+    description: Operations regarding device statuses
+  - name: Tag Operations
+    description: Operations regarding device tags
+paths:
+  /api/arrays:
+    get:
+      summary: Returns a list of registered storage devices
+      tags:
+        - Device Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/offsetParam"
+        - $ref: "#/components/parameters/sortParam"
+      responses:
+        "200":
+          description: The search was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of devices
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Device"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    post:
+      summary: Registers a new storage device
+      tags:
+        - Device Operations
+      requestBody:
+        description: The device to register
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceRegistration"
+      responses:
+        "200":
+          description: The device was registered successfully
+          content:
+            application/json:
+              schema:
+                description: The registered device
+                $ref: "#/components/schemas/Device"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    patch:
+      summary: Modifies all storage devices matching the given query
+      tags:
+        - Device Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+      requestBody:
+        description: The patch to apply
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevicePatch"
+      responses:
+        "200":
+          description: The patch was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of devices
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Device"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    delete:
+      summary: Deletes all storage devices matching the given query. Note that this will fail on an empty query to avoid mass-destructive operations.
+      tags:
+        - Device Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+      responses:
+        "200":
+          description: The deletion was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deletedCount:
+                    description: The number of devices deleted
+                    type: integer
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /api/arrays/status:
+    get:
+      summary: Returns a list of registered storage device statuses
+      tags:
+        - Status Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/offsetParam"
+        - $ref: "#/components/parameters/sortParam"
+      responses:
+        "200":
+          description: The registration was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of device statuses
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DeviceStatus"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+  /api/arrays/tags:
+    get:
+      summary: Returns a list of registered storage device tags
+      tags:
+        - Tag Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/offsetParam"
+        - $ref: "#/components/parameters/sortParam"
+      responses:
+        "200":
+          description: The search was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of device tags
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DeviceTags"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    patch:
+      summary: Adds new tags and modifies existing tags on all devices matching the given query
+      tags:
+        - Tag Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+      requestBody:
+        description: The tag patch to apply
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Collection of device tag patches
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/DeviceTag"
+      responses:
+        "200":
+          description: The patch was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of device tags
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DeviceTags"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+    delete:
+      summary: Deletes the given tags from all devices matching the given query
+      tags:
+        - Tag Operations
+      parameters:
+        - $ref: "#/components/parameters/idsParam"
+        - $ref: "#/components/parameters/namesParam"
+        - $ref: "#/components/parameters/modelsParam"
+        - $ref: "#/components/parameters/versionsParam"
+        - name: tags
+          description: The tag keys to delete, as a comma-separated list
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: The deletion was successful
+          content:
+            application/json:
+              schema:
+                description: Collection of device tags
+                type: object
+                properties:
+                  response:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DeviceTags"
+        "400":
+          $ref: "#/components/responses/400Response"
+        "500":
+          $ref: "#/components/responses/500Response"
+components:
+  parameters:
+    idsParam:
+      name: ids
+      description: The IDs to filter by, as a comma-separated list
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    namesParam:
+      name: names
+      description: The names to filter by, as a comma-separated list. Wildcards are supported
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    modelsParam:
+      name: models
+      description: The device models to filter by, as a comma-separated list. Wildcards are supported
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    versionsParam:
+      name: versions
+      description: The versions to filter by, as a comma-separated list. Wildcards are supported
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+    limitParam:
+      name: limit
+      description: The maximum number of items to return
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+    offsetParam:
+      name: offset
+      description: The number of items to skip
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+    sortParam:
+      name: sort
+      description: How to sort the returned results. Add a hyphen at the end to sort descending, default is ascending.
+      in: query
+      schema:
+        type: string
+  responses:
+    400Response:
+      description: Something in the input was invalid
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    500Response:
+      description: Something went wrong in the server (such as a database connection error)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+  schemas:
+    Device:
+      description: Information about a specific device
+      type: object
+      required:
+        - id
+        - name
+        - mgmt_endpoint
+        - api_token
+        - device_type
+        - status
+        - model
+        - version
+        - _as_of
+        - _last_updated
+      properties:
+        id:
+          type: string
+          description: Globally unique device ID
+        name:
+          type: string
+          description: Device display name
+        mgmt_endpoint:
+          type: string
+          description: Address to access the device management portal through
+        nfs_endpoint:
+          type: string
+          description: Address to access the network file system through (required for FlashBlade only)
+        api_token:
+          type: string
+          description: API token to use to access the device
+        device_type:
+          type: string
+          description: The type of the device (either "FlashArray" or "FlashBlade")
+        status:
+          type: string
+          description: >-
+            Current status of the device. One of: { "Connecting", "Connected",
+            "Unable to connect. Error: [error message]"}
+        model:
+          type: string
+          description: >-
+            The model of the device. For example, "FlashBlade", "FA-405", etc.
+        version:
+          type: string
+          description: >-
+            The purity version running on the device. For example, "5.1.3", "4.9.5", or "2.3.3"
+        _as_of:
+          type: string
+          description: The last time the device was successfully pinged, in ISO 8601 format (yyyy-MM-ddTHH:mm:ss.SSS)
+        _last_updated:
+          type: string
+          description: >-
+            The last time information in this device was updated, in ISO 8601
+            format (yyyy-MM-ddTHH:mm:ss.SSS)
+    DeviceRegistration:
+      description: Information to register an device
+      type: object
+      required:
+        - name
+        - mgmt_endpoint
+        - api_token
+        - device_type
+      properties:
+        name:
+          type: string
+          description: Device display name
+        mgmt_endpoint:
+          type: string
+          description: Address to access the device management portal through
+        api_token:
+          type: string
+          description: API token to use to access the device
+        device_type:
+          type: string
+          description: The type of the device (either "FlashArray" or "FlashBlade")
+        nfs_endpoint:
+          type: string
+          description: Address to access the network file system through (required for FlashBlade only)
+    DevicePatch:
+      description: Information to patch for a device/devices
+      type: object
+      properties:
+        name:
+          type: string
+          description: Device display name
+        mgmt_endpoint:
+          type: string
+          description: Address to access the device management portal through
+        nfs_endpoint:
+          type: string
+          description: Address to access the network file system through (required for FlashBlade only)
+        api_token:
+          type: string
+          description: API token to use to access the device
+        device_type:
+          type: string
+          description: The type of the device (either "FlashArray" or "FlashBlade")
+        status:
+          type: string
+          description: For internal modification only.
+        _as_of:
+          type: string
+          description: For internal modification only.
+        _last_updated:
+          type: string
+          description: For internal modification only.
+    DeviceStatus:
+      description: Information on the status of a specific device
+      type: object
+      required:
+        - id
+        - status
+        - _as_of
+      properties:
+        id:
+          type: string
+          description: Globally unique device ID
+        status:
+          type: string
+          description: >-
+            Current status of the device. One of: { 'Connecting', 'Connected',
+            'Unable to connect. Error: [error message]'}
+        _as_of:
+          type: string
+          description: The last time the device was successfully pinged, in ISO 8601 format (yyyy-MM-ddTHH:mm:ss.SSS)
+    DeviceTags:
+      description: Information on the tags of a specific device
+      type: object
+      required:
+        - id
+        - tags
+        - _as_of
+      properties:
+        id:
+          type: string
+          description: Globally unique device ID
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeviceTag"
+          description: The tags on the device
+        _as_of:
+          type: string
+          description: The last time the device was successfully pinged, in ISO 8601 format (yyyy-MM-ddTHH:mm:ss.SSS)
+    DeviceTag:
+      description: A tag on a device
+      type: object
+      required:
+        - key
+        - value
+        - namespace
+      properties:
+        key:
+          type: string
+          description: The key of the tag
+        namespace:
+          type: string
+          description: >-
+            The namespace of the tag. Usually 'psoNamespace' (for PSO-set internal
+            labels) or 'pure1-unplugged' (for user-set tags)
+        value:
+          type: string
+          description: The value of the tag
+    ErrorResponse:
+      description: The response given for an error
+      type: object
+      required:
+        - code
+        - text
+      properties:
+        code:
+          type: integer
+          description: The HTTP error code of this error
+        namespace:
+          type: string
+          description: The actual error message that caused this error code
