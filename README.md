@@ -1,4 +1,4 @@
-# Pure1 Unplugged
+# Pure1 Unplugged - a test of our build system
 Pure Storage's open-source on-premise fleet monitoring solution.
 
 ## Installation
