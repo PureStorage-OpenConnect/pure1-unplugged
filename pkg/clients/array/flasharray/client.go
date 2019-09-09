@@ -36,9 +36,8 @@ const (
 	ArrayControllersEndpoint              = "/array?controllers=true"
 	ArrayPerformanceMetricsEndpoint       = "/array?action=monitor&size=true"
 	HostCountEndpoint                     = "/host?start=0&limit=1"
-	MessageClosedEndpoint                 = "/message?open=false"
 	MessageFlaggedEndpoint                = "/message?flagged=true"
-	MessageOpenEndpoint                   = "/message?open=true"
+	MessageTimelineEndpoint               = "/message?timeline=true"
 	SessionEndpoint                       = "/auth/session"
 	VolumeCapacityMetricsEndpoint         = "/volume?space=true"
 	VolumeCountEndpoint                   = "/volume?start=0&limit=1"
@@ -90,19 +89,14 @@ func NewClient(displayName string, managementEndpoint string, apiToken string) (
 	return &client, nil
 }
 
-// GetAlertsClosed returns only closed alert messages from the array
-func (client *Client) GetAlertsClosed() ([]*AlertResponse, error) {
-	return client.getAlerts(MessageClosedEndpoint)
-}
-
 // GetAlertsFlagged returns only flagged alert messages from the array
 func (client *Client) GetAlertsFlagged() ([]*AlertResponse, error) {
 	return client.getAlerts(MessageFlaggedEndpoint)
 }
 
-// GetAlertsOpen returns only open alert messages from the array
-func (client *Client) GetAlertsOpen() ([]*AlertResponse, error) {
-	return client.getAlerts(MessageOpenEndpoint)
+// GetAlertsTimeline returns all alert messages from the array with a "closed" response field
+func (client *Client) GetAlertsTimeline() ([]*AlertResponse, error) {
+	return client.getAlerts(MessageTimelineEndpoint)
 }
 
 // GetArrayCapacityMetrics returns all capacity metrics for the array

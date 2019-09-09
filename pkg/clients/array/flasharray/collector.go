@@ -110,13 +110,9 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 
 	// Parse and combine the alerts
 	alertsMap := make(map[string]*metrics.Alert)
-	// Add the open/closed alerts to the map
-	for _, response := range alertResponseBundle.OpenResponse {
-		alert := convertAlertsResponse(response, collector.ArrayID, arrayInfo.ArrayName, collector.DisplayName, collector.MgmtEndpoint, false, "open")
-		alertsMap[string(alert.AlertID)] = alert
-	}
-	for _, response := range alertResponseBundle.ClosedResponse {
-		alert := convertAlertsResponse(response, collector.ArrayID, arrayInfo.ArrayName, collector.DisplayName, collector.MgmtEndpoint, false, "closed")
+	// Add the timeline alerts to the map
+	for _, response := range alertResponseBundle.TimelineResponse {
+		alert := convertAlertsResponse(response, collector.ArrayID, arrayInfo.ArrayName, collector.DisplayName, collector.MgmtEndpoint, false)
 		alertsMap[string(alert.AlertID)] = alert
 	}
 	// Mark the flagged alerts as flagged and leave the rest unflagged
@@ -131,7 +127,7 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 
 	// Combine the array objects metric
 	arrayObjectsMetric := &metrics.ArrayObjectsMetric{
-		AlertMessageCount:             uint32(len(alertResponseBundle.OpenResponse) + len(alertResponseBundle.FlaggedResponse)),
+		AlertMessageCount:             uint32(len(alertResponseBundle.TimelineResponse)),
 		FileSystemCount:               0, // Does not apply to FlashArray
 		HostCount:                     objectCountResponseBundle.HostCount,
 		SnapshotCount:                 objectCountResponseBundle.SnapshotCount,
@@ -280,7 +276,6 @@ func (collector *Collector) GetArrayName() (string, error) {
 }
 
 // GetArrayTags returns the tags of the array from the API server
-// TODO: we will need to fill in a client here
 func (collector *Collector) GetArrayTags() (map[string]string, error) {
 	timer := timing.NewStageTimer("flasharray.Collector.GetArrayTags", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
@@ -317,28 +312,21 @@ func (collector *Collector) fetchAllAlerts(alertsChan chan AlertResponseBundle) 
 	timer := timing.NewStageTimer("flasharray.Collector.fetchAllAlerts", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
-	alertsOpenResponse, err := collector.Client.GetAlertsOpen()
-	if err != nil {
-		collector.logIncompleteData(err, "GetAlertsOpen")
-		alertsOpenResponse = []*AlertResponse{}
-	}
-
-	alertsClosedResponse, err := collector.Client.GetAlertsClosed()
-	if err != nil {
-		collector.logIncompleteData(err, "GetAlertsClosed")
-		alertsClosedResponse = []*AlertResponse{}
-	}
-
 	alertsFlaggedResponse, err := collector.Client.GetAlertsFlagged()
 	if err != nil {
 		collector.logIncompleteData(err, "GetAlertsFlagged")
 		alertsFlaggedResponse = []*AlertResponse{}
 	}
 
+	alertsTimelineResponse, err := collector.Client.GetAlertsTimeline()
+	if err != nil {
+		collector.logIncompleteData(err, "GetAlertsTimeline")
+		alertsTimelineResponse = []*AlertResponse{}
+	}
+
 	responseBundle := AlertResponseBundle{
-		ClosedResponse:  alertsClosedResponse,
-		FlaggedResponse: alertsFlaggedResponse,
-		OpenResponse:    alertsOpenResponse,
+		FlaggedResponse:  alertsFlaggedResponse,
+		TimelineResponse: alertsTimelineResponse,
 	}
 	alertsChan <- responseBundle
 }
@@ -410,12 +398,17 @@ func (collector *Collector) logIncompleteData(err error, subject string) {
 }
 
 // ConvertAlertsResponse converts an alert responses into the desired resource
-func convertAlertsResponse(response *AlertResponse, arrayID string, arrayName string, arrayDisplayName string, arrayHostname string, flagged bool, state string) *metrics.Alert {
+func convertAlertsResponse(response *AlertResponse, arrayID string, arrayName string, arrayDisplayName string, arrayHostname string, flagged bool) *metrics.Alert {
 	// FlashArray time formatted in "2006-01-02T15:04:05Z"
 	openedTime, err := time.Parse("2006-01-02T15:04:05Z", response.Opened)
 	if err != nil {
 		// Default to current time
 		openedTime = time.Now()
+	}
+	// Set the state depending if the "closed" field is populated with a non-null value
+	state := "closed"
+	if response.Closed == "" {
+		state = "open"
 	}
 	alert := &metrics.Alert{
 		AlertID:          response.ID,

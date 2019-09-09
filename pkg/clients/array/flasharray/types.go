@@ -24,9 +24,8 @@ import (
 
 // ArrayClient is the interface for the FlashArray client
 type ArrayClient interface {
-	GetAlertsClosed() ([]*AlertResponse, error)
 	GetAlertsFlagged() ([]*AlertResponse, error)
-	GetAlertsOpen() ([]*AlertResponse, error)
+	GetAlertsTimeline() ([]*AlertResponse, error)
 	GetArrayCapacityMetrics() (*ArrayCapacityMetricsResponse, error)
 	GetArrayInfo() (*ArrayInfoResponse, error)
 	GetArrayPerformanceMetrics() (*ArrayPerformanceMetricsResponse, error)
@@ -62,9 +61,8 @@ type Collector struct {
 
 // AlertResponseBundle is used to return all alerts responses together
 type AlertResponseBundle struct {
-	ClosedResponse  []*AlertResponse
-	FlaggedResponse []*AlertResponse
-	OpenResponse    []*AlertResponse
+	FlaggedResponse  []*AlertResponse
+	TimelineResponse []*AlertResponse
 }
 
 // ArrayMetricsResponseBundle is used to return all array metric responses together
@@ -87,6 +85,7 @@ type ObjectCountResponseBundle struct {
 type AlertResponse struct {
 	Actual          string `json:"actual"`
 	Category        string `json:"category"`
+	Closed          string `json:"closed"`
 	Code            uint16 `json:"code"`
 	ComponentName   string `json:"component_name"`
 	ComponentType   string `json:"component_type"`

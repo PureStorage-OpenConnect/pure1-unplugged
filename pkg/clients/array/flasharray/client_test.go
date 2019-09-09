@@ -56,15 +56,11 @@ func TestFlashArrayClient(t *testing.T) {
 
 	var response interface{}
 
-	response, err = client.GetAlertsClosed()
-	assert.NoError(t, err)
-	assert.NotNil(t, response)
-
 	response, err = client.GetAlertsFlagged()
 	assert.NoError(t, err)
 	assert.NotNil(t, response)
 
-	response, err = client.GetAlertsOpen()
+	response, err = client.GetAlertsTimeline()
 	assert.NoError(t, err)
 	assert.NotNil(t, response)
 

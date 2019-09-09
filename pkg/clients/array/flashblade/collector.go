@@ -263,7 +263,6 @@ func (collector *Collector) GetArrayName() (string, error) {
 }
 
 // GetArrayTags returns the tags of the array from the API server
-// TODO: we will need to fill in a client here
 func (collector *Collector) GetArrayTags() (map[string]string, error) {
 	timer := timing.NewStageTimer("flashblade.Collector.GetArrayTags", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
