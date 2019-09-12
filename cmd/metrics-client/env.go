@@ -39,7 +39,7 @@ type EnvMetricsClientConfig struct {
 	AlertsIndexName                string `env:"ELASTIC_ALERT_INDEX_NAME" envDefault:"pure1-unplugged-alerts"`
 	AlertsTypeName                 string `env:"ELASTIC_ALERT_TYPE_NAME" envDefault:"alerts"`
 	Host                           string `env:"ELASTIC_HOST" envDefault:"localhost:9200"`
-	ArrayMetricCollectionPeriod    int    `env:"ELASTIC_ARRAY_METRIC_COLLECTION_PERIOD" envDefault:"30"`
+	ArrayMetricCollectionPeriod    int    `env:"ELASTIC_ARRAY_METRIC_COLLECTION_PERIOD" envDefault:"5"`
 	FAVolumeMetricCollectionPeriod int    `env:"ELASTIC_FA_VOLUME_METRIC_COLLECTION_PERIOD" envDefault:"30"`
 	FBVolumeMetricCollectionPeriod int    `env:"ELASTIC_FB_VOLUME_METRIC_COLLECTION_PERIOD" envDefault:"300"` // Cannot collect as frequently as FA
 	WorkerPoolThreads              int    `env:"WORKER_THREADS" envDefault:"50"`                              // Reasonable defaults for most workloads
