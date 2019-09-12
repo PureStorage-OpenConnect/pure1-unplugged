@@ -27,7 +27,7 @@ import (
 const (
 	mountDirectory              = "/media/Pure1-Unplugged_x86_64"
 	loopFileHandle              = "/dev/loop7"
-	pure1UnpluggedMediaRepoPath = "/etc/yum.repos.d/Pure1 Unplugged-Media.repo"
+	pure1UnpluggedMediaRepoPath = "/etc/yum.repos.d/Pure1-Unplugged-Media.repo"
 )
 
 // Mount is the entry point for the workflow to mount a Pure1 Unplugged upgrade iso.
