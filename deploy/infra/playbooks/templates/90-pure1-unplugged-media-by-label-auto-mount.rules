@@ -11,13 +11,13 @@ ENV{ID_FS_LABEL}!="Pure1-UNPLUGGED_x86_64", GOTO="pure1_unplugged_media_by_label
 ACTION=="add|change", ENV{mount_dir}="%E{ID_FS_LABEL}"
 
 # Mount the device (add/remove workflow, if the iso is on a loopback device or something)
-ACTION=="add", RUN+="/bin/mkdir -p /media/%E{mount_dir}", RUN+="/bin/mount /dev/%k /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/Pure1 Unplugged-Media.repo"
-ACTION=="remove", RUN+="/bin/umount /media/%E{mount_dir}", RUN+="/bin/rmdir /dev/%k" RUN+="/bin/sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/Pure1 Unplugged-Media.repo"
+ACTION=="add", RUN+="/bin/mkdir -p /media/%E{mount_dir}", RUN+="/bin/mount /dev/%k /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/Pure1-Unplugged-Media.repo"
+ACTION=="remove", RUN+="/bin/umount /media/%E{mount_dir}", RUN+="/bin/rmdir /dev/%k" RUN+="/bin/sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/Pure1-Unplugged-Media.repo"
 
 # Mount the device (change workflow, cdroms will behave like this for the most part)
 # when ID_CDROM_MEDIA == 1 it means some media is in the drive)
-ACTION=="change", ENV{ID_CDROM_MEDIA}=="1", RUN+="/bin/mkdir -p /media/%E{mount_dir}", RUN+="/bin/mount /dev/%k /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/Pure1 Unplugged-Media.repo"
-ACTION=="change", ENV{ID_CDROM_MEDIA}=="", RUN+="/bin/umount -l /dev/%k", RUN+="/bin/rmdir /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/Pure1 Unplugged-Media.repo"
+ACTION=="change", ENV{ID_CDROM_MEDIA}=="1", RUN+="/bin/mkdir -p /media/%E{mount_dir}", RUN+="/bin/mount /dev/%k /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/Pure1-Unplugged-Media.repo"
+ACTION=="change", ENV{ID_CDROM_MEDIA}=="", RUN+="/bin/umount -l /dev/%k", RUN+="/bin/rmdir /media/%E{mount_dir}" RUN+="/bin/sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/Pure1-Unplugged-Media.repo"
 
 # Exit
 LABEL="pure1_unplugged_media_by_label_auto_mount_end"

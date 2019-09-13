@@ -77,7 +77,7 @@ func enablePure1UnpluggedRepoStep(ctx cli.Context) error {
 		CmdArgs: []string{
 			"-i",
 			"s/enabled=0/enabled=1/g",
-			"/etc/yum.repos.d/Pure1 Unplugged-Media.repo",
+			"/etc/yum.repos.d/Pure1-Unplugged-Media.repo",
 		},
 		Timeout: 5, // 5 second timeout just in case
 	}
@@ -145,7 +145,7 @@ func disablePure1UnpluggedRepoStep(ctx cli.Context) error {
 		CmdArgs: []string{
 			"-i",
 			"s/enabled=1/enabled=0/g",
-			"/etc/yum.repos.d/Pure1 Unplugged-Media.repo",
+			"/etc/yum.repos.d/Pure1-Unplugged-Media.repo",
 		},
 		Timeout: 5, // 5 second timeout just in case
 	}
