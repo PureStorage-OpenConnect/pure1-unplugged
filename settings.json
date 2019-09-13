@@ -2,7 +2,7 @@
     "id": "pure1-unplugged",
     "name": "Pure1 Unplugged",
     "filter": "devops",
-    "image": "http://code.purestorage.com/images/30_pure1.png",
+    "image": "https://code.purestorage.com/images/30_pure1.png",
     "featured": 1,
     "priority": 3
 }
