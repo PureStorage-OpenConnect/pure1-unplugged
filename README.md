@@ -1,5 +1,5 @@
 # Pure1 Unplugged
-Pure Storage's open-source on-premise fleet monitoring solution.
+Pure1 Unplugged is Pure Storage's open-source on-premises fleet management system.
 
 ## Installation
 Pure1 Unplugged can be installed from an ISO or an OVA. The latest versions, along with documentation, are pre-created and are available to download for free. Documentation is also available online.
