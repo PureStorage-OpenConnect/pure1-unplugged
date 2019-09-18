@@ -25,12 +25,12 @@ spec:
       {{- end }}
 
   rules:
-    - http:
-        {{- if $domainName }}
-        host: {{ $domainName }}
-        {{ else }}
-        # host:  ## Not specified because global.PublicAddress is an IP address
-        {{ end -}}
+    - {{- if $domainName }}
+      host: {{ $domainName }}
+      {{ else }}
+      # host:  ## Not specified because global.PublicAddress is an IP address
+      {{ end -}}
+      http:
         paths:
           - path: /auth/api-token(/?.*)
             backend:
