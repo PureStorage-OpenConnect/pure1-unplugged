@@ -115,6 +115,7 @@ lorax \
     --bugurl "https://support.purestorage.com/" \
     --volid ${PURE1_UNPLUGGED_VOLID} \
     --buildarch "x86_64" \
+    --rootfs-size 10 \
     ${BUILD_DIR}/lorax-results
 
 cp ${BUILD_DIR}/lorax-results/images/boot.iso ${BUILD_DIR}/${OS_NAME}-${VERSION}.iso
