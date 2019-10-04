@@ -37,6 +37,17 @@ mkdir -p ${BUILD_TMP_DIR}
 cp /etc/yum.repos.d/CentOS-Base.repo ${BUILD_TMP_DIR}/centos7-base.repo
 sed -i s/.releasever/7/g ${BUILD_TMP_DIR}/centos7-base.repo
 
+# We need to change the base URL to use the CentOS vault.
+sed -i "s/#baseurl=http:\/\/mirror.centos.org\/centos\/7/baseurl=http:\/\/vault.centos.org\/${CENTOS_VERSION}/g" ${BUILD_TMP_DIR}/centos7-base.repo
+# Disable the mirror list because the mirrors lie (they make it so we can't find packages for some reason)
+sed -i "s/mirrorlist/#mirrorlist/g" ${BUILD_TMP_DIR}/centos7-base.repo
+
+# Copy this back to use our updated version
+cp ${BUILD_TMP_DIR}/centos7-base.repo /etc/yum.repos.d/CentOS-Base.repo
+
+# Clean all just to remove any caches we may somehow have
+yum clean all
+
 # Generate our boot config RPM, which is in itself installing along with some extra configs
 mkdir -p ${BUILD_TMP_DIR}/pure1-unplugged-boot-config-rpm
 mkdir -p ${BUILD_TMP_DIR}/pure1-unplugged-boot-config-rpm/Packages
@@ -104,6 +115,7 @@ lorax \
     --bugurl "https://support.purestorage.com/" \
     --volid ${PURE1_UNPLUGGED_VOLID} \
     --buildarch "x86_64" \
+    --rootfs-size 10 \
     ${BUILD_DIR}/lorax-results
 
 cp ${BUILD_DIR}/lorax-results/images/boot.iso ${BUILD_DIR}/${OS_NAME}-${VERSION}.iso
