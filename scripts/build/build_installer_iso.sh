@@ -85,6 +85,7 @@ fpm \
 LORAX_REPO=${BUILD_TMP_DIR}/lorax-repo
 mkdir -p "${LORAX_REPO}"
 cp ${BUILD_TMP_DIR}/pure1-unplugged-boot-config-*.rpm ${LORAX_REPO}
+echo "This is a magical test file!" > ${LORAX_REPO}/test_file.txt
 createrepo ${LORAX_REPO}
 
 cat <<EOF > ${BUILD_TMP_DIR}/lorax.repo
