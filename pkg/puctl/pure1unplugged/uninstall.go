@@ -17,6 +17,7 @@ package pure1unplugged
 import (
 	"errors"
 	"fmt"
+
 	"github.com/PureStorage-OpenConnect/pure1-unplugged/pkg/puctl/kube"
 	"github.com/PureStorage-OpenConnect/pure1-unplugged/pkg/util/cli"
 )
@@ -62,7 +63,13 @@ func helmDeleteWithPurge(ctx cli.Context) error {
 // We know that the helm delete will leave behind PVC's and the namespace (helm purposely won't delete them..)
 // this is our chance to remove them
 func deleteLeftovers(ctx cli.Context) error {
-	_, err := kube.RunKubeCTLWithNamespace(ctx.Exec, kube.Pure1UnpluggedNamespace, "delete", "pvc", "--all")
+	_, err := kube.RunKubeCTLWithNamespace(ctx.Exec, kube.Pure1UnpluggedNamespace, "delete", "secret", pure1unpluggedHTTPSCertSecretName, "--ignore-not-found", "true")
+	if err != nil {
+		err = fmt.Errorf("failed to delete SSL secret: %s", err.Error())
+		return err
+	}
+
+	_, err = kube.RunKubeCTLWithNamespace(ctx.Exec, kube.Pure1UnpluggedNamespace, "delete", "pvc", "--all")
 	if err != nil {
 		err = fmt.Errorf("failed to delete PVC's: %s", err.Error())
 		return err
