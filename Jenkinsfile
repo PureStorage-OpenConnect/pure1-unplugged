@@ -22,18 +22,24 @@ def runStageWithTimeout(String stageName, int timeoutMinutes, Closure stageToRun
     }
 }
 
-properties(
-        [
-                [$class: 'BuildDiscarderProperty',
-                 strategy: [
-                         $class: 'LogRotator',
-                         artifactDaysToKeepStr: '',
-                         artifactNumToKeepStr: '10',
-                         daysToKeepStr: '',
-                         numToKeepStr: '10']
+props = [
+            [
+                $class: 'BuildDiscarderProperty',
+                strategy: [
+                    $class: 'LogRotator',
+                    artifactDaysToKeepStr: '2',
+                    artifactNumToKeepStr: '',
+                    daysToKeepStr: '2',
+                    numToKeepStr: ''
                 ]
+            ],
         ]
-)
+
+if (env.BRANCH_NAME == "master") {
+    props.add(pipelineTriggers([cron('0 13 * * *')]))
+}
+
+properties(props)
 
 node('pure1-unplugged') {
     try {
