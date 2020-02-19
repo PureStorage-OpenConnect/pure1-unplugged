@@ -27,8 +27,8 @@ _Example_: `make go-clean go-prep go-auth-server` runs the targets `clean prep a
 * Web content: `make test-web-content`
 
 ### Local deployment
-1. Start minikube with at least 6GB memory and 40GB disk
-   *  `minikube start --memory 6144 --disk-size 40g`
+1. Start minikube with at least 6GB memory and 40GB disk, and with the proper Kubernetes version.
+   *  `minikube start --memory 6144 --disk-size 40g --kubernetes-version v1.13.4`
 2. Build with `make all-minikube`
     * Note that build output goes into `./build/*`, and this `minikube` build mode will *not* create the installer ISO
 3. Deploy with `./scripts/deploy/helm_install.sh $(minikube ip)`
