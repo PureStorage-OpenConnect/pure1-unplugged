@@ -5,7 +5,7 @@ Pure1 Unplugged is Pure Storage's open-source on-premises fleet management syste
 Pure1 Unplugged can be installed from an ISO or an OVA. The latest versions, along with documentation, are pre-created and are available to download for free. Documentation is also available online.
 
 ### Links
-http://dl-west.purestorage.com/pure/pure1-unplugged/download
+https://static.pure1.purestorage.com/pure1-unplugged/download
 
 https://support.purestorage.com/Pure1/Pure1_Unplugged.
 
