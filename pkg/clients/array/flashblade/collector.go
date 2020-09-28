@@ -68,6 +68,8 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 		return nil, err // Can't mark the data without the array name
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Array info collected, starting fetch goroutines")
+
 	// Fetch all alerts
 	alertsChan := make(chan []*AlertResponse)
 	go collector.fetchAllAlerts(alertsChan)
@@ -83,6 +85,7 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 	// Fetch the array tags
 	arrayTags, err := collector.GetArrayTags()
 	if err != nil {
+		log.WithError(err).WithField("display_name", collector.DisplayName).Warn("Failed to collect array tags, setting to empty map instead and proceeding")
 		arrayTags = map[string]string{}
 	}
 
@@ -94,14 +97,18 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 		select {
 		case message1 := <-alertsChan:
 			alertResponses = message1
+			log.WithField("info", arrayInfo).Trace("Received alerts bundle")
 		case message2 := <-arrayMetricsChan:
 			arrayMetricsResponseBundle = message2
+			log.WithField("info", arrayInfo).Trace("Received array metrics bundle")
 		case message3 := <-objectCountChan:
 			objectCountResponseBundle = message3
+			log.WithField("info", arrayInfo).Trace("Received object counts bundle")
 		}
 	}
 
 	timer.Stage("parse_responses")
+	log.WithField("display_name", collector.DisplayName).Trace("Received all metrics bundles, parsing and converting")
 
 	// Record the current time for the metrics
 	creationTime := time.Now().Unix()
@@ -167,6 +174,8 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 		return nil, err // Can't mark the data without the array name
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Array info collected, beginning to fetch filesystem capacity metrics")
+
 	// Get the various file system metrics
 	timer.Stage("GetFileSystemCapacityMetrics")
 	capacityResponse, err := collector.Client.GetFileSystemCapacityMetrics()
@@ -175,11 +184,15 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 		capacityResponse = []*FileSystemCapacityMetricsResponse{}
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch filesystem performance metrics")
+
 	timer.Stage("GetFileSystemPerformanceMetrics")
 	performanceResponse, err := collector.Client.GetFileSystemPerformanceMetrics(timeWindow)
 	if err != nil {
 		return nil, err // If we are missing performance data, it's too messy to tie things together
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch filesystem snapshot metrics")
 
 	timer.Stage("GetFileSystemSnapshots")
 	snapshotsResponse, err := collector.Client.GetFileSystemSnapshots()
@@ -191,10 +204,12 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 	// Fetch the array tags
 	arrayTags, err := collector.GetArrayTags()
 	if err != nil {
+		log.WithError(err).WithField("display_name", collector.DisplayName).Warn("Failed to collect array tags, setting to empty map instead and proceeding")
 		arrayTags = map[string]string{}
 	}
 
 	timer.Stage("parse_responses")
+	log.WithField("display_name", collector.DisplayName).Trace("Fetched all metrics, parsing and converting")
 
 	// Map the snapshots to their file systems to get a count
 	volumeSnapshotCountMap := make(map[string]uint32)
@@ -298,11 +313,14 @@ func (collector *Collector) fetchAllAlerts(alertsChan chan []*AlertResponse) {
 	timer := timing.NewStageTimer("flashblade.Collector.fetchAllAlerts", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch alerts")
 	alertsResponse, err := collector.Client.GetAlerts()
 	if err != nil {
 		collector.logIncompleteData(err, "GetAlerts")
 		alertsResponse = []*AlertResponse{}
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("All alerts fetched, returning bundle to channel")
 	alertsChan <- alertsResponse
 }
 
@@ -311,17 +329,23 @@ func (collector *Collector) fetchArrayMetrics(arrayMetricsChan chan ArrayMetrics
 	timer := timing.NewStageTimer("flashblade.Collector.fetchArrayMetrics", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array capacity metrics")
+
 	capacityResponse, err := collector.Client.GetArrayCapacityMetrics()
 	if err != nil {
 		collector.logIncompleteData(err, "GetArrayCapacityMetrics")
 		capacityResponse = &ArrayCapacityMetricsResponse{}
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array performance metrics")
+
 	performanceResponse, err := collector.Client.GetArrayPerformanceMetrics()
 	if err != nil {
 		collector.logIncompleteData(err, "GetArrayPerformanceMetrics")
 		performanceResponse = &ArrayPerformanceMetricsResponse{}
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("All array metrics fetched, returning bundle to channel")
 
 	responseBundle := ArrayMetricsResponseBundle{
 		CapacityMetricsResponse:    capacityResponse,
@@ -336,15 +360,21 @@ func (collector *Collector) fetchObjectCounts(itemCountChan chan ObjectCountResp
 	timer := timing.NewStageTimer("flashblade.Collector.fetchObjectCounts", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array filesystem count")
+
 	fileSystemCount, err := collector.Client.GetFileSystemCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetFileSystemCount")
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array filesystem snapshot count")
+
 	snapshotCount, err := collector.Client.GetFileSystemSnapshotCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetFileSystemSnapshotCount")
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Fetched all array object counts, returning bundle to channel")
 
 	responseBundle := ObjectCountResponseBundle{
 		FileSystemCount: fileSystemCount,

@@ -79,6 +79,7 @@ func (m *ArrayMetricCollectJob) Execute() {
 		return
 	}
 
+	log.WithField("array", *m.TargetArray).Trace("Connection/collector instantiated for array, collecting array data")
 	timer.Stage("collecting")
 
 	arrayMetrics, err := connection.GetAllArrayData()
@@ -89,6 +90,8 @@ func (m *ArrayMetricCollectJob) Execute() {
 		}).Error("Error collecting array metrics")
 		return
 	}
+
+	log.WithField("array", *m.TargetArray).Trace("Array metrics collected, beginning to enqueue push jobs")
 
 	// Dispatch pushing jobs
 	metricPushJob := &ArrayMetricPushJob{
@@ -148,6 +151,7 @@ func (m *ArrayVolumeMetricCollectJob) Execute() {
 		return
 	}
 
+	log.WithField("array", *m.TargetArray).Trace("Connection/collector instantiated for array, collecting volume data")
 	timer.Stage("collecting")
 
 	metrics, err := connection.GetAllVolumeData(m.TimeWindow)
@@ -158,6 +162,7 @@ func (m *ArrayVolumeMetricCollectJob) Execute() {
 		}).Error("Error collecting volume metrics")
 		return
 	}
+	log.WithField("array", *m.TargetArray).Trace("Volume metrics collected, beginning to enqueue push job")
 
 	// Dispatch pushing job
 	volumePushJob := &ArrayVolumeMetricPushJob{
