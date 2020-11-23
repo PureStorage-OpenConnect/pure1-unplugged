@@ -19,6 +19,7 @@ if [[ -z "${KUBEVERSION}" ]]; then
 fi
 
 docker build \
+    --no-cache \
     -t lorax-build:${VERSION} \
     --build-arg "KUBERNETES_VERSION=${KUBEVERSION}" \
     -f ${REPO_ROOT}/images/lorax-build/Dockerfile \

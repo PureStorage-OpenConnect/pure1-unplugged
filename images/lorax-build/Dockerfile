@@ -32,7 +32,7 @@ RUN yum update -y && yum install -y \
 # Note we install kubeadm only so we can snag a list of its required images with the config shipped
 # for this version of kubeadm (matches the one we install with our installer iso).
 
-RUN gem install --no-ri --no-rdoc fpm
+RUN gem install --no-ri --no-rdoc fpm -f
 
 COPY images/lorax-build/lorax.conf /etc/lorax/
 
