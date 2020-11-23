@@ -40,6 +40,10 @@ func (c *Client) FindArrays(query *resources.ArrayQuery) ([]*resources.Array, er
 	searchService := c.esclient.Search(arraysIndexName).Type("_doc").Query(query.GenerateElasticQueryObject()).From(query.Offset).IgnoreUnavailable(true).AllowNoIndices(true)
 	if query.Limit > 0 {
 		searchService.Size(query.Limit)
+	} else {
+		// Default to 1000 results if not specified (should be bigger than any "practical" fleet size to ensure returning
+		// all results)
+		searchService.Size(1000)
 	}
 	if len(query.Sort) > 0 {
 		sortParam, err := query.GetSortParameter()
