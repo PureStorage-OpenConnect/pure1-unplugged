@@ -20,7 +20,8 @@ sed -i "s/@PURE1_UNPLUGGED_VERSION@/${VERSION}/g" ${TMP_CHART_DIR}/pure1-unplugg
 
 HELM_HOME=$(mktemp -d)
 
-helm init --client-only --home ${HELM_HOME}
+# Manually specify stable repo URL since it's moved: https://helm.sh/blog/new-location-stable-incubator-charts/
+helm init --client-only --home ${HELM_HOME} --stable-repo-url "https://charts.helm.sh/stable"
 helm package --home ${HELM_HOME} --destination ${CHART_DIR} ${TMP_CHART_DIR}/pure1-unplugged
 
 # rename our output

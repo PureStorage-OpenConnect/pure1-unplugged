@@ -32,7 +32,30 @@ RUN yum update -y && yum install -y \
 # Note we install kubeadm only so we can snag a list of its required images with the config shipped
 # for this version of kubeadm (matches the one we install with our installer iso).
 
-RUN gem install --no-ri --no-rdoc fpm -f
+# Working versions (stolen from last successful lorax-build image)
+# arr-pm (0.0.10)
+# backports (3.18.2)
+# bigdecimal (1.2.0)
+# cabin (0.9.0)
+# childprocess (0.9.0)
+# clamp (1.0.1)
+# dotenv (2.7.6)
+# ffi (1.13.1)
+# fpm (1.11.0)
+# insist (1.0.0)
+# io-console (0.4.2)
+# io-like (0.3.1)
+# json (1.7.7)
+# mustache (0.99.8)
+# pleaserun (0.0.31)
+# psych (2.0.0)
+# rdoc (4.0.0)
+# ruby-xz (0.2.3)
+# stud (0.0.23)
+
+# Install FFI first to force the correct version
+RUN gem install ffi -f -v 1.13.1
+RUN gem install --no-ri --no-rdoc fpm -f -v 1.11.0
 
 COPY images/lorax-build/lorax.conf /etc/lorax/
 
