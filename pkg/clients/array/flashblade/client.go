@@ -319,6 +319,14 @@ func (client *Client) performGet(url string, resultType interface{}) (interface{
 		if response.StatusCode() == 200 {
 			return response.Result(), response.Header(), nil
 		}
+
+		// No error, and not a handled status code: let's print it for debugging
+		log.WithFields(log.Fields{
+			"display_name": client.DisplayName,
+			"status_code":  response.StatusCode(),
+			"url":          url,
+			"body":         response.String(),
+		}).Trace("Unhandled status code returned")
 	}
 	// Log we failed
 	log.WithFields(log.Fields{

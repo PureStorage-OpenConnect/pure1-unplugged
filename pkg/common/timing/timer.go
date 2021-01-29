@@ -44,6 +44,7 @@ func NewStageTimer(processName string, extraFields log.Fields) StageTimer {
 // Stage marks a delimiting point between sections of a timer
 func (s *StageTimer) Stage(stageName string) {
 	s.marks = append(s.marks, step{stepName: stageName, stepTime: time.Now().UTC()})
+	log.WithFields(s.extraFields).WithField("stage_name", stageName).Trace("StageTimer started new stage")
 }
 
 // Finish adds a stage called "finish" and logs all of the durations

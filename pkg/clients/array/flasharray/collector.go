@@ -68,6 +68,8 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 		return nil, err // Can't mark the data without the array name
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Array info collected, starting fetch goroutines")
+
 	// Fetch the opened, closed, and flagged alerts
 	alertsChan := make(chan AlertResponseBundle)
 	go collector.fetchAllAlerts(alertsChan)
@@ -85,6 +87,7 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 	// we don't have a bit of metadata for it.
 	arrayTags, err := collector.GetArrayTags()
 	if err != nil {
+		log.WithError(err).WithField("display_name", collector.DisplayName).Warn("Failed to collect array tags, setting to empty map instead and proceeding")
 		arrayTags = map[string]string{}
 	}
 
@@ -96,14 +99,18 @@ func (collector *Collector) GetAllArrayData() (*metrics.AllArrayData, error) {
 		select {
 		case message1 := <-alertsChan:
 			alertResponseBundle = message1
+			log.WithField("info", arrayInfo).Trace("Received alerts bundle")
 		case message2 := <-arrayMetricsChan:
 			arrayMetricsResponseBundle = message2
+			log.WithField("info", arrayInfo).Trace("Received array metrics bundle")
 		case message3 := <-objectCountChan:
 			objectCountResponseBundle = message3
+			log.WithField("info", arrayInfo).Trace("Received object counts bundle")
 		}
 	}
 
 	timer.Stage("parse_responses")
+	log.WithField("display_name", collector.DisplayName).Trace("Received all metrics bundles, parsing and converting")
 
 	// Record the current time for the metrics
 	creationTime := time.Now().Unix()
@@ -173,6 +180,8 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 		return nil, err // Can't mark the data without the array name
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Array info collected, beginning to fetch volume capacity metrics")
+
 	// Fetch the the various volume metrics
 	timer.Stage("GetVolumeCapacityMetrics")
 	capacityResponse, err := collector.Client.GetVolumeCapacityMetrics()
@@ -181,12 +190,16 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 		capacityResponse = []*VolumeCapacityMetricsResponse{}
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch volume performance metrics")
+
 	timer.Stage("GetVolumePerformanceMetrics")
 	performanceResponse, err := collector.Client.GetVolumePerformanceMetrics()
 	if err != nil {
 		collector.logIncompleteData(err, "GetVolumePerformanceMetrics")
 		performanceResponse = []*VolumePerformanceMetricsResponse{}
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch volume snapshot metrics")
 
 	timer.Stage("GetVolumeSnapshots")
 	snapshotResponse, err := collector.Client.GetVolumeSnapshots()
@@ -198,10 +211,12 @@ func (collector *Collector) GetAllVolumeData(timeWindow int64) (*metrics.AllVolu
 	// Fetch the array tags
 	arrayTags, err := collector.GetArrayTags()
 	if err != nil {
+		log.WithError(err).WithField("display_name", collector.DisplayName).Warn("Failed to collect array tags, setting to empty map instead and proceeding")
 		arrayTags = map[string]string{}
 	}
 
 	timer.Stage("parse_responses")
+	log.WithField("display_name", collector.DisplayName).Trace("Fetched all metrics, parsing and converting")
 
 	// Record the current time for the metrics
 	creationTime := time.Now().Unix()
@@ -312,17 +327,23 @@ func (collector *Collector) fetchAllAlerts(alertsChan chan AlertResponseBundle) 
 	timer := timing.NewStageTimer("flasharray.Collector.fetchAllAlerts", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch flagged alerts")
+
 	alertsFlaggedResponse, err := collector.Client.GetAlertsFlagged()
 	if err != nil {
 		collector.logIncompleteData(err, "GetAlertsFlagged")
 		alertsFlaggedResponse = []*AlertResponse{}
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch alerts timeline")
+
 	alertsTimelineResponse, err := collector.Client.GetAlertsTimeline()
 	if err != nil {
 		collector.logIncompleteData(err, "GetAlertsTimeline")
 		alertsTimelineResponse = []*AlertResponse{}
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("All alerts fetched, returning bundle to channel")
 
 	responseBundle := AlertResponseBundle{
 		FlaggedResponse:  alertsFlaggedResponse,
@@ -337,17 +358,23 @@ func (collector *Collector) fetchArrayMetrics(arrayMetricsChan chan ArrayMetrics
 	timer := timing.NewStageTimer("flasharray.Collector.fetchArrayMetrics", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array capacity metrics")
+
 	arrayCapacityResponse, err := collector.Client.GetArrayCapacityMetrics()
 	if err != nil {
 		collector.logIncompleteData(err, "GetArrayCapacityMetrics")
 		arrayCapacityResponse = &ArrayCapacityMetricsResponse{}
 	}
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array performance metrics")
+
 	arrayPerformanceResponse, err := collector.Client.GetArrayPerformanceMetrics()
 	if err != nil {
 		collector.logIncompleteData(err, "GetArrayPerformanceMetrics")
 		arrayPerformanceResponse = &ArrayPerformanceMetricsResponse{}
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("All array metrics fetched, returning bundle to channel")
 
 	responseBundle := ArrayMetricsResponseBundle{
 		CapacityMetricsResponse:    arrayCapacityResponse,
@@ -362,22 +389,35 @@ func (collector *Collector) fetchObjectCounts(itemCountChan chan ObjectCountResp
 	timer := timing.NewStageTimer("flasharray.Collector.fetchObjectCounts", log.Fields{"display_name": collector.DisplayName})
 	defer timer.Finish()
 
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array host count")
+
 	hostCount, err := collector.Client.GetHostCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetHostCount")
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array host count")
+
 	snapshotCount, err := collector.Client.GetVolumeSnapshotCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetSnapshotCount")
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array volume count")
+
 	volumeCount, err := collector.Client.GetVolumeCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetHostCount")
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Beginning to fetch array volume pending eradication count")
+
 	volumePendingEradicationCount, err := collector.Client.GetVolumePendingEradicationCount()
 	if err != nil {
 		collector.logIncompleteData(err, "GetVolumePendingEradicationCount")
 	}
+
+	log.WithField("display_name", collector.DisplayName).Trace("Fetched all array object counts, returning bundle to channel")
 
 	responseBundle := ObjectCountResponseBundle{
 		HostCount:                     hostCount,
